@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cases",
+  "info": {
+    "singularName": "case",
+    "pluralName": "cases",
+    "displayName": "case",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true,
+    "populateCreatorFields": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "measures": {
+      "type": "string",
+      "required": true,
+      "minLength": 1
+    },
+    "story": {
+      "type": "string",
+      "required": true,
+      "minLength": 1
+    },
+    "when": {
+      "type": "enumeration",
+      "enum": [
+        "Se viene produciendo en reiteradas ocaciones",
+        "En una fecha determinada",
+        "No lo tengo claro"
+      ],
+      "required": true
+    },
+    "where": {
+      "type": "enumeration",
+      "enum": [
+        "En el colegio",
+        "Fuera del colegio",
+        "En las redes sociales",
+        "En otro lugar"
+      ],
+      "required": true
+    },
+    "directed": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "who": {
+      "type": "json"
+    },
+    "establishment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::establishment.establishment"
+    }
+  }
+}

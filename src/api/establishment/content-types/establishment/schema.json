@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "establishments",
+  "info": {
+    "singularName": "establishment",
+    "pluralName": "establishments",
+    "displayName": "establishment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "address": {
+      "type": "string"
+    },
+    "Phone": {
+      "type": "string"
+    }
+  }
+}
