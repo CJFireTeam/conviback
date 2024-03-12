@@ -8,8 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true,
-    "populateCreatorFields": true
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
@@ -23,25 +22,6 @@
       "required": true,
       "minLength": 1
     },
-    "when": {
-      "type": "enumeration",
-      "enum": [
-        "Se viene produciendo en reiteradas ocaciones",
-        "En una fecha determinada",
-        "No lo tengo claro"
-      ],
-      "required": true
-    },
-    "where": {
-      "type": "enumeration",
-      "enum": [
-        "En el colegio",
-        "Fuera del colegio",
-        "En las redes sociales",
-        "En otro lugar"
-      ],
-      "required": true
-    },
     "directed": {
       "type": "relation",
       "relation": "oneToOne",
@@ -54,6 +34,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::establishment.establishment"
+    },
+    "when": {
+      "type": "json"
+    },
+    "where": {
+      "type": "json"
     }
   }
 }

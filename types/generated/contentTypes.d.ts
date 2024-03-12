@@ -372,7 +372,6 @@ export interface ApiCaseCase extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: true;
-    populateCreatorFields: true;
   };
   attributes: {
     measures: Attribute.String &
@@ -385,23 +384,6 @@ export interface ApiCaseCase extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    when: Attribute.Enumeration<
-      [
-        'Se viene produciendo en reiteradas ocaciones',
-        'En una fecha determinada',
-        'No lo tengo claro'
-      ]
-    > &
-      Attribute.Required;
-    where: Attribute.Enumeration<
-      [
-        'En el colegio',
-        'Fuera del colegio',
-        'En las redes sociales',
-        'En otro lugar'
-      ]
-    > &
-      Attribute.Required;
     directed: Attribute.Relation<
       'api::case.case',
       'oneToOne',
@@ -413,11 +395,15 @@ export interface ApiCaseCase extends Schema.CollectionType {
       'oneToOne',
       'api::establishment.establishment'
     >;
+    when: Attribute.JSON;
+    where: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'>;
-    updatedBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'>;
+    createdBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
   };
 }
 
