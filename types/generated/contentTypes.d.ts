@@ -422,6 +422,16 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
     status: Attribute.Boolean;
     address: Attribute.String;
     Phone: Attribute.String;
+    Comuna: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    users: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -881,13 +891,13 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    second_lastname: Attribute.String;
-    first_lastname: Attribute.String;
-    firstname: Attribute.String;
-    secondname: Attribute.String;
+    second_lastname: Attribute.String & Attribute.Required;
+    first_lastname: Attribute.String & Attribute.Required;
+    firstname: Attribute.String & Attribute.Required;
+    secondname: Attribute.String & Attribute.Required;
     establishment: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToOne',
+      'manyToOne',
       'api::establishment.establishment'
     >;
     createdAt: Attribute.DateTime;

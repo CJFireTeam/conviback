@@ -23,6 +23,17 @@
     },
     "Phone": {
       "type": "string"
+    },
+    "Comuna": {
+      "type": "string",
+      "required": true,
+      "minLength": 1
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "establishment"
     }
   }
 }

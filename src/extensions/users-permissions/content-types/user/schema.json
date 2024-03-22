@@ -66,21 +66,26 @@
       "configurable": false
     },
     "second_lastname": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "first_lastname": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "firstname": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "secondname": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "establishment": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::establishment.establishment"
+      "relation": "manyToOne",
+      "target": "api::establishment.establishment",
+      "inversedBy": "users"
     }
   }
 }
