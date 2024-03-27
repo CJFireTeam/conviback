@@ -372,7 +372,6 @@ export interface ApiCaseCase extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: true;
-    populateCreatorFields: true;
   };
   attributes: {
     measures: Attribute.String &
@@ -398,11 +397,18 @@ export interface ApiCaseCase extends Schema.CollectionType {
     >;
     when: Attribute.JSON;
     where: Attribute.JSON;
+    created: Attribute.Relation<
+      'api::case.case',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'>;
-    updatedBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'>;
+    createdBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
   };
 }
 

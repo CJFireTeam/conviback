@@ -8,8 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true,
-    "populateCreatorFields": true
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
@@ -41,6 +40,11 @@
     },
     "where": {
       "type": "json"
+    },
+    "created": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }
