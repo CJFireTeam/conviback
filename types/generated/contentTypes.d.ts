@@ -362,133 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiCaseCase extends Schema.CollectionType {
-  collectionName: 'cases';
-  info: {
-    singularName: 'case';
-    pluralName: 'cases';
-    displayName: 'case';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    measures: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    story: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    directed: Attribute.Relation<
-      'api::case.case',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    who: Attribute.JSON;
-    establishment: Attribute.Relation<
-      'api::case.case',
-      'oneToOne',
-      'api::establishment.establishment'
-    >;
-    when: Attribute.JSON;
-    where: Attribute.JSON;
-    created: Attribute.Relation<
-      'api::case.case',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
-  collectionName: 'establishments';
-  info: {
-    singularName: 'establishment';
-    pluralName: 'establishments';
-    displayName: 'establishment';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    status: Attribute.Boolean;
-    address: Attribute.String;
-    Phone: Attribute.String;
-    Comuna: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    users: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiRoleListRoleList extends Schema.CollectionType {
-  collectionName: 'role_lists';
-  info: {
-    singularName: 'role-list';
-    pluralName: 'role-lists';
-    displayName: 'roleList';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    reference: Attribute.Integer;
-    forCases: Attribute.Boolean;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::role-list.role-list',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::role-list.role-list',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -923,6 +796,179 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCaseCase extends Schema.CollectionType {
+  collectionName: 'cases';
+  info: {
+    singularName: 'case';
+    pluralName: 'cases';
+    displayName: 'case';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    measures: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    story: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    directed: Attribute.Relation<
+      'api::case.case',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    who: Attribute.JSON;
+    establishment: Attribute.Relation<
+      'api::case.case',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    when: Attribute.JSON;
+    where: Attribute.JSON;
+    created: Attribute.Relation<
+      'api::case.case',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    fase: Attribute.Integer & Attribute.DefaultTo<1>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
+  collectionName: 'establishments';
+  info: {
+    singularName: 'establishment';
+    pluralName: 'establishments';
+    displayName: 'establishment';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    status: Attribute.Boolean;
+    address: Attribute.String;
+    Phone: Attribute.String;
+    Comuna: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    users: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    is_listing: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRoleListRoleList extends Schema.CollectionType {
+  collectionName: 'role_lists';
+  info: {
+    singularName: 'role-list';
+    pluralName: 'role-lists';
+    displayName: 'roleList';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    reference: Attribute.Integer;
+    forCases: Attribute.Boolean;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::role-list.role-list',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::role-list.role-list',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSugerenciaSugerencia extends Schema.CollectionType {
+  collectionName: 'sugerencias';
+  info: {
+    singularName: 'sugerencia';
+    pluralName: 'sugerencias';
+    displayName: 'sugerencia';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    sugerencia: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+      }>;
+    creador: Attribute.Relation<
+      'api::sugerencia.sugerencia',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    establishment: Attribute.Relation<
+      'api::sugerencia.sugerencia',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::sugerencia.sugerencia',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::sugerencia.sugerencia',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -933,9 +979,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::case.case': ApiCaseCase;
-      'api::establishment.establishment': ApiEstablishmentEstablishment;
-      'api::role-list.role-list': ApiRoleListRoleList;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -944,6 +987,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::case.case': ApiCaseCase;
+      'api::establishment.establishment': ApiEstablishmentEstablishment;
+      'api::role-list.role-list': ApiRoleListRoleList;
+      'api::sugerencia.sugerencia': ApiSugerenciaSugerencia;
     }
   }
 }

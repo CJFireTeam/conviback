@@ -45,6 +45,10 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "fase": {
+      "type": "integer",
+      "default": 1
     }
   }
 }

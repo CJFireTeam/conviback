@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sugerencias",
+  "info": {
+    "singularName": "sugerencia",
+    "pluralName": "sugerencias",
+    "displayName": "sugerencia"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "sugerencia": {
+      "type": "text",
+      "required": true,
+      "minLength": 10
+    },
+    "creador": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "establishment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::establishment.establishment"
+    }
+  }
+}
