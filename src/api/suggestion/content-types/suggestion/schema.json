@@ -1,23 +1,22 @@
 {
   "kind": "collectionType",
-  "collectionName": "sugerencias",
+  "collectionName": "suggestions",
   "info": {
-    "singularName": "sugerencia",
-    "pluralName": "sugerencias",
-    "displayName": "sugerencia",
-    "description": ""
+    "singularName": "suggestion",
+    "pluralName": "suggestions",
+    "displayName": "suggestion"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "sugerencia": {
+    "suggestion": {
       "type": "text",
       "required": true,
       "minLength": 10
     },
-    "creador": {
+    "created": {
       "type": "relation",
       "relation": "oneToOne",
       "required": true,

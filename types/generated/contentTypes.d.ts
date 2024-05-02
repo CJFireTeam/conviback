@@ -931,6 +931,7 @@ export interface ApiSugerenciaSugerencia extends Schema.CollectionType {
     singularName: 'sugerencia';
     pluralName: 'sugerencias';
     displayName: 'sugerencia';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -945,12 +946,14 @@ export interface ApiSugerenciaSugerencia extends Schema.CollectionType {
       'api::sugerencia.sugerencia',
       'oneToOne',
       'plugin::users-permissions.user'
-    >;
+    > &
+      Attribute.Required;
     establishment: Attribute.Relation<
       'api::sugerencia.sugerencia',
       'oneToOne',
       'api::establishment.establishment'
-    >;
+    > &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -962,6 +965,52 @@ export interface ApiSugerenciaSugerencia extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::sugerencia.sugerencia',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSuggestionSuggestion extends Schema.CollectionType {
+  collectionName: 'suggestions';
+  info: {
+    singularName: 'suggestion';
+    pluralName: 'suggestions';
+    displayName: 'suggestion';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    suggestion: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+      }>;
+    created: Attribute.Relation<
+      'api::suggestion.suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    > &
+      Attribute.Required;
+    establishment: Attribute.Relation<
+      'api::suggestion.suggestion',
+      'oneToOne',
+      'api::establishment.establishment'
+    > &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::suggestion.suggestion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::suggestion.suggestion',
       'oneToOne',
       'admin::user'
     > &
@@ -991,6 +1040,7 @@ declare module '@strapi/types' {
       'api::establishment.establishment': ApiEstablishmentEstablishment;
       'api::role-list.role-list': ApiRoleListRoleList;
       'api::sugerencia.sugerencia': ApiSugerenciaSugerencia;
+      'api::suggestion.suggestion': ApiSuggestionSuggestion;
     }
   }
 }
