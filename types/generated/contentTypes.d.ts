@@ -847,6 +847,71 @@ export interface ApiCaseCase extends Schema.CollectionType {
   };
 }
 
+export interface ApiComplaintComplaint extends Schema.CollectionType {
+  collectionName: 'complaints';
+  info: {
+    singularName: 'complaint';
+    pluralName: 'complaints';
+    displayName: 'complaint';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    first_case: Attribute.Relation<
+      'api::complaint.complaint',
+      'oneToOne',
+      'api::case.case'
+    >;
+    derived: Attribute.Relation<
+      'api::complaint.complaint',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    nameSchoolar: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    course: Attribute.String & Attribute.Required;
+    Teacher: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    date: Attribute.DateTime;
+    details: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+      }>;
+    measures: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+      }>;
+    created: Attribute.Relation<
+      'api::complaint.complaint',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::complaint.complaint',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::complaint.complaint',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
   collectionName: 'establishments';
   info: {
@@ -1037,6 +1102,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::case.case': ApiCaseCase;
+      'api::complaint.complaint': ApiComplaintComplaint;
       'api::establishment.establishment': ApiEstablishmentEstablishment;
       'api::role-list.role-list': ApiRoleListRoleList;
       'api::sugerencia.sugerencia': ApiSugerenciaSugerencia;
