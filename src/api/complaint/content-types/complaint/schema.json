@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "complaints",
+  "info": {
+    "singularName": "complaint",
+    "pluralName": "complaints",
+    "displayName": "complaint"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "first_case": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::case.case"
+    },
+    "derived": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "nameSchoolar": {
+      "type": "text",
+      "required": true,
+      "minLength": 5
+    },
+    "course": {
+      "type": "string",
+      "required": true
+    },
+    "Teacher": {
+      "type": "text",
+      "required": true,
+      "minLength": 5
+    },
+    "date": {
+      "type": "datetime"
+    },
+    "details": {
+      "type": "text",
+      "required": true,
+      "minLength": 10
+    },
+    "measures": {
+      "type": "text",
+      "minLength": 10
+    },
+    "created": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
