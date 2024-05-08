@@ -49,6 +49,10 @@
     "fase": {
       "type": "integer",
       "default": 1
+    },
+    "Derived": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
