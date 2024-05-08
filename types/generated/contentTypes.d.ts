@@ -837,7 +837,7 @@ export interface ApiCaseCase extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     fase: Attribute.Integer & Attribute.DefaultTo<1>;
-    Derived: Attribute.Boolean & Attribute.DefaultTo<false>;
+    derived: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

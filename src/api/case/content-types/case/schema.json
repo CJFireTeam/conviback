@@ -50,7 +50,7 @@
       "type": "integer",
       "default": 1
     },
-    "Derived": {
+    "derived": {
       "type": "boolean",
       "default": false
     }
