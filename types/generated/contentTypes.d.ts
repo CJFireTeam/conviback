@@ -779,6 +779,28 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'api::establishment.establishment'
     >;
+    tipo: Attribute.Enumeration<['alumno', 'profesor', 'otro']> &
+      Attribute.DefaultTo<'otro'>;
+    direccion: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    region: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    comuna: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    establishment_authenticateds: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::establishment.establishment'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -940,6 +962,11 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     is_listing: Attribute.Boolean & Attribute.DefaultTo<false>;
+    user: Attribute.Relation<
+      'api::establishment.establishment',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

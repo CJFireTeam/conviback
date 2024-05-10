@@ -86,6 +86,37 @@
       "relation": "manyToOne",
       "target": "api::establishment.establishment",
       "inversedBy": "users"
+    },
+    "tipo": {
+      "type": "enumeration",
+      "enum": [
+        "alumno",
+        "profesor",
+        "otro"
+      ],
+      "default": "otro",
+      "required": false
+    },
+    "direccion": {
+      "type": "string",
+      "required": true,
+      "minLength": 5
+    },
+    "region": {
+      "type": "string",
+      "required": true,
+      "minLength": 5
+    },
+    "comuna": {
+      "type": "string",
+      "required": true,
+      "minLength": 5
+    },
+    "establishment_authenticateds": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::establishment.establishment",
+      "mappedBy": "user"
     }
   }
 }
