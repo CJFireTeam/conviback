@@ -91,7 +91,7 @@
       "type": "enumeration",
       "enum": [
         "alumno",
-        "profesor",
+        "apoderado",
         "otro"
       ],
       "default": "otro",

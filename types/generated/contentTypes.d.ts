@@ -779,7 +779,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'api::establishment.establishment'
     >;
-    tipo: Attribute.Enumeration<['alumno', 'profesor', 'otro']> &
+    tipo: Attribute.Enumeration<['alumno', 'apoderado', 'otro']> &
       Attribute.DefaultTo<'otro'>;
     direccion: Attribute.String &
       Attribute.Required &
