@@ -53,6 +53,22 @@
     "derived": {
       "type": "boolean",
       "default": false
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Initial",
+        "Aula Segura",
+        "Prácticas abusivas sexuales",
+        "Maltrato físico y psicológico entre pares",
+        "Embarazo y paternidad adolescente",
+        "Vulneración de derechos",
+        "Consumo de drogas y alcohol",
+        "Tendencia o actos suicidas",
+        "Bullying",
+        "Otros"
+      ],
+      "default": "Initial"
     }
   }
 }

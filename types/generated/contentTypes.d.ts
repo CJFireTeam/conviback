@@ -861,6 +861,21 @@ export interface ApiCaseCase extends Schema.CollectionType {
     >;
     fase: Attribute.Integer & Attribute.DefaultTo<1>;
     derived: Attribute.Boolean & Attribute.DefaultTo<false>;
+    category: Attribute.Enumeration<
+      [
+        'Initial',
+        'Aula Segura',
+        'Pr\u00E1cticas abusivas sexuales',
+        'Maltrato f\u00EDsico y psicol\u00F3gico entre pares',
+        'Embarazo y paternidad adolescente',
+        'Vulneraci\u00F3n de derechos',
+        'Consumo de drogas y alcohol',
+        'Tendencia o actos suicidas',
+        'Bullying',
+        'Otros'
+      ]
+    > &
+      Attribute.DefaultTo<'Initial'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
