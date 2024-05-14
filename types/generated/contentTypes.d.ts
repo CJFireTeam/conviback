@@ -886,6 +886,45 @@ export interface ApiCaseCase extends Schema.CollectionType {
   };
 }
 
+export interface ApiChargeCharge extends Schema.CollectionType {
+  collectionName: 'charges';
+  info: {
+    singularName: 'charge';
+    pluralName: 'charges';
+    displayName: 'charge';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    professional: Attribute.Relation<
+      'api::charge.charge',
+      'oneToOne',
+      'api::professional.professional'
+    >;
+    case: Attribute.Relation<
+      'api::charge.charge',
+      'oneToOne',
+      'api::case.case'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::charge.charge',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::charge.charge',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiComplaintComplaint extends Schema.CollectionType {
   collectionName: 'complaints';
   info: {
@@ -994,6 +1033,86 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::establishment.establishment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPositionPosition extends Schema.CollectionType {
+  collectionName: 'positions';
+  info: {
+    singularName: 'position';
+    pluralName: 'positions';
+    displayName: 'position';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    establishment: Attribute.Relation<
+      'api::position.position',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    name: Attribute.String & Attribute.Required;
+    status: Attribute.Boolean & Attribute.DefaultTo<true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::position.position',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::position.position',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProfessionalProfessional extends Schema.CollectionType {
+  collectionName: 'professionals';
+  info: {
+    singularName: 'professional';
+    pluralName: 'professionals';
+    displayName: 'professional';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    names: Attribute.Text & Attribute.Required;
+    surnames: Attribute.Text;
+    position: Attribute.Relation<
+      'api::professional.professional',
+      'oneToOne',
+      'api::position.position'
+    >;
+    establishment: Attribute.Relation<
+      'api::professional.professional',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    status: Attribute.Boolean & Attribute.DefaultTo<true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::professional.professional',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::professional.professional',
       'oneToOne',
       'admin::user'
     > &
@@ -1146,8 +1265,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::case.case': ApiCaseCase;
+      'api::charge.charge': ApiChargeCharge;
       'api::complaint.complaint': ApiComplaintComplaint;
       'api::establishment.establishment': ApiEstablishmentEstablishment;
+      'api::position.position': ApiPositionPosition;
+      'api::professional.professional': ApiProfessionalProfessional;
       'api::role-list.role-list': ApiRoleListRoleList;
       'api::sugerencia.sugerencia': ApiSugerenciaSugerencia;
       'api::suggestion.suggestion': ApiSuggestionSuggestion;
