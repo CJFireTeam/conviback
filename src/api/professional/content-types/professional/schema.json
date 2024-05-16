@@ -32,6 +32,10 @@
     "status": {
       "type": "boolean",
       "default": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
     }
   }
 }

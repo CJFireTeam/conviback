@@ -931,6 +931,7 @@ export interface ApiComplaintComplaint extends Schema.CollectionType {
     singularName: 'complaint';
     pluralName: 'complaints';
     displayName: 'complaint';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -972,6 +973,7 @@ export interface ApiComplaintComplaint extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    options: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1102,6 +1104,7 @@ export interface ApiProfessionalProfessional extends Schema.CollectionType {
       'api::establishment.establishment'
     >;
     status: Attribute.Boolean & Attribute.DefaultTo<true>;
+    email: Attribute.Email & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

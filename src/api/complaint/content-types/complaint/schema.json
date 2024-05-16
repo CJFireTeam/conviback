@@ -4,7 +4,8 @@
   "info": {
     "singularName": "complaint",
     "pluralName": "complaints",
-    "displayName": "complaint"
+    "displayName": "complaint",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -51,6 +52,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "options": {
+      "type": "json"
     }
   }
 }
