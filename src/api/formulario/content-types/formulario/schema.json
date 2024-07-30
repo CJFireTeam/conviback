@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "formularios",
+  "info": {
+    "singularName": "formulario",
+    "pluralName": "formularios",
+    "displayName": "formulario",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Titulo": {
+      "type": "string",
+      "required": true,
+      "minLength": 5
+    },
+    "FechaInicio": {
+      "type": "date",
+      "required": true
+    },
+    "FechaFin": {
+      "type": "date",
+      "required": true
+    },
+    "creador": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "Descripcion": {
+      "type": "text"
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "usuarios": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "formulario"
+    },
+    "establishment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::establishment.establishment"
+    },
+    "formulario_pregutas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pregunta.pregunta",
+      "mappedBy": "formulario"
+    }
+  }
+}

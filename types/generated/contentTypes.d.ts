@@ -802,6 +802,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'api::establishment.establishment'
     >;
     phone: Attribute.String & Attribute.Required;
+    formulario: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToOne',
+      'api::formulario.formulario'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1042,6 +1047,65 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
   };
 }
 
+export interface ApiFormularioFormulario extends Schema.CollectionType {
+  collectionName: 'formularios';
+  info: {
+    singularName: 'formulario';
+    pluralName: 'formularios';
+    displayName: 'formulario';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Titulo: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    FechaInicio: Attribute.Date & Attribute.Required;
+    FechaFin: Attribute.Date & Attribute.Required;
+    creador: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    Descripcion: Attribute.Text;
+    status: Attribute.Boolean;
+    usuarios: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    establishment: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    formulario_pregutas: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToMany',
+      'api::pregunta.pregunta'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPositionPosition extends Schema.CollectionType {
   collectionName: 'positions';
   info: {
@@ -1072,6 +1136,47 @@ export interface ApiPositionPosition extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::position.position',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPreguntaPregunta extends Schema.CollectionType {
+  collectionName: 'preguntas';
+  info: {
+    singularName: 'pregunta';
+    pluralName: 'preguntas';
+    displayName: 'pregunta';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Titulo: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
+      }>;
+    Tipo: Attribute.Enumeration<['Texto', 'Opciones']> & Attribute.Required;
+    opciones: Attribute.JSON;
+    formulario: Attribute.Relation<
+      'api::pregunta.pregunta',
+      'manyToOne',
+      'api::formulario.formulario'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pregunta.pregunta',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pregunta.pregunta',
       'oneToOne',
       'admin::user'
     > &
@@ -1271,7 +1376,9 @@ declare module '@strapi/types' {
       'api::charge.charge': ApiChargeCharge;
       'api::complaint.complaint': ApiComplaintComplaint;
       'api::establishment.establishment': ApiEstablishmentEstablishment;
+      'api::formulario.formulario': ApiFormularioFormulario;
       'api::position.position': ApiPositionPosition;
+      'api::pregunta.pregunta': ApiPreguntaPregunta;
       'api::professional.professional': ApiProfessionalProfessional;
       'api::role-list.role-list': ApiRoleListRoleList;
       'api::sugerencia.sugerencia': ApiSugerenciaSugerencia;

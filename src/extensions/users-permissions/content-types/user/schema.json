@@ -121,6 +121,12 @@
     "phone": {
       "type": "string",
       "required": true
+    },
+    "formulario": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::formulario.formulario",
+      "inversedBy": "usuarios"
     }
   }
 }
