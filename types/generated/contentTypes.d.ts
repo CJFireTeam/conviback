@@ -1149,6 +1149,7 @@ export interface ApiPreguntaPregunta extends Schema.CollectionType {
     singularName: 'pregunta';
     pluralName: 'preguntas';
     displayName: 'pregunta';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1159,13 +1160,16 @@ export interface ApiPreguntaPregunta extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
-    Tipo: Attribute.Enumeration<['Texto', 'Opciones']> & Attribute.Required;
+    Tipo: Attribute.Enumeration<
+      ['text', 'option', 'multipleChoice', 'qualification']
+    > &
+      Attribute.Required;
     opciones: Attribute.JSON;
     formulario: Attribute.Relation<
       'api::pregunta.pregunta',
       'manyToOne',
       'api::formulario.formulario'
-    >;
+    > & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1173,7 +1177,8 @@ export interface ApiPreguntaPregunta extends Schema.CollectionType {
       'api::pregunta.pregunta',
       'oneToOne',
       'admin::user'
-    > &
+    >
+     & Attribute.Required &
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::pregunta.pregunta',
