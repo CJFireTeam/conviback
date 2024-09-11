@@ -28,7 +28,6 @@
     "creador": {
       "type": "relation",
       "relation": "oneToOne",
-      "required": true,
       "target": "plugin::users-permissions.user"
     },
     "Descripcion": {
@@ -47,7 +46,6 @@
     "establishment": {
       "type": "relation",
       "relation": "oneToOne",
-      "required": true,
       "target": "api::establishment.establishment"
     },
     "formulario_pregutas": {
@@ -55,6 +53,10 @@
       "relation": "oneToMany",
       "target": "api::pregunta.pregunta",
       "mappedBy": "formulario"
+    },
+    "ForCourse": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
