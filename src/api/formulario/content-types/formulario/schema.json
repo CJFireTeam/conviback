@@ -28,13 +28,15 @@
     "creador": {
       "type": "relation",
       "relation": "oneToOne",
+      "required": true,
       "target": "plugin::users-permissions.user"
     },
     "Descripcion": {
       "type": "text"
     },
     "status": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": true
     },
     "usuarios": {
       "type": "relation",
@@ -45,6 +47,7 @@
     "establishment": {
       "type": "relation",
       "relation": "oneToOne",
+      "required": true,
       "target": "api::establishment.establishment"
     },
     "formulario_pregutas": {

@@ -1072,7 +1072,7 @@ export interface ApiFormularioFormulario extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     Descripcion: Attribute.Text;
-    status: Attribute.Boolean;
+    status: Attribute.Boolean & Attribute.DefaultTo<true>;
     usuarios: Attribute.Relation<
       'api::formulario.formulario',
       'oneToMany',
@@ -1169,7 +1169,7 @@ export interface ApiPreguntaPregunta extends Schema.CollectionType {
       'api::pregunta.pregunta',
       'manyToOne',
       'api::formulario.formulario'
-    > & Attribute.Required;
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1177,8 +1177,7 @@ export interface ApiPreguntaPregunta extends Schema.CollectionType {
       'api::pregunta.pregunta',
       'oneToOne',
       'admin::user'
-    >
-     & Attribute.Required &
+    > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::pregunta.pregunta',
