@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pregunta",
     "pluralName": "preguntas",
-    "displayName": "pregunta"
+    "displayName": "pregunta",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,8 +20,10 @@
     "Tipo": {
       "type": "enumeration",
       "enum": [
-        "Texto",
-        "Opciones"
+        "text",
+        "option",
+        "multipleChoice",
+        "qualification"
       ],
       "required": true
     },
