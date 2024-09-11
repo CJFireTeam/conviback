@@ -802,11 +802,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'api::establishment.establishment'
     >;
     phone: Attribute.String & Attribute.Required;
-    formulario: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'manyToOne',
-      'api::formulario.formulario'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1073,11 +1068,6 @@ export interface ApiFormularioFormulario extends Schema.CollectionType {
     >;
     Descripcion: Attribute.Text;
     status: Attribute.Boolean & Attribute.DefaultTo<true>;
-    usuarios: Attribute.Relation<
-      'api::formulario.formulario',
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
     establishment: Attribute.Relation<
       'api::formulario.formulario',
       'oneToOne',
@@ -1359,6 +1349,49 @@ export interface ApiSuggestionSuggestion extends Schema.CollectionType {
   };
 }
 
+export interface ApiUserformUserform extends Schema.CollectionType {
+  collectionName: 'userforms';
+  info: {
+    singularName: 'userform';
+    pluralName: 'userforms';
+    displayName: 'userform';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    isCompleted: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    user: Attribute.Relation<
+      'api::userform.userform',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    establishment: Attribute.Relation<
+      'api::userform.userform',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    date: Attribute.DateTime & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::userform.userform',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::userform.userform',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1388,6 +1421,7 @@ declare module '@strapi/types' {
       'api::role-list.role-list': ApiRoleListRoleList;
       'api::sugerencia.sugerencia': ApiSugerenciaSugerencia;
       'api::suggestion.suggestion': ApiSuggestionSuggestion;
+      'api::userform.userform': ApiUserformUserform;
     }
   }
 }

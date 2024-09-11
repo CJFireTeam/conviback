@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "userforms",
+  "info": {
+    "singularName": "userform",
+    "pluralName": "userforms",
+    "displayName": "userform"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "isCompleted": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "establishment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::establishment.establishment"
+    },
+    "date": {
+      "type": "datetime",
+      "unique": false,
+      "required": true
+    }
+  }
+}
