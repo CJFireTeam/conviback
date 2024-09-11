@@ -4,7 +4,8 @@
   "info": {
     "singularName": "userform",
     "pluralName": "userforms",
-    "displayName": "userform"
+    "displayName": "userform",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,16 +20,24 @@
     "user": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "required": true
     },
     "establishment": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::establishment.establishment"
+      "target": "api::establishment.establishment",
+      "required": true
     },
     "date": {
       "type": "datetime",
       "unique": false,
+      "required": true
+    },
+    "formulario": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::formulario.formulario",
       "required": true
     }
   }

@@ -1355,6 +1355,7 @@ export interface ApiUserformUserform extends Schema.CollectionType {
     singularName: 'userform';
     pluralName: 'userforms';
     displayName: 'userform';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1367,13 +1368,21 @@ export interface ApiUserformUserform extends Schema.CollectionType {
       'api::userform.userform',
       'oneToOne',
       'plugin::users-permissions.user'
-    >;
+    > &
+      Attribute.Required;
     establishment: Attribute.Relation<
       'api::userform.userform',
       'oneToOne',
       'api::establishment.establishment'
-    >;
+    > &
+      Attribute.Required;
     date: Attribute.DateTime & Attribute.Required;
+    formulario: Attribute.Relation<
+      'api::userform.userform',
+      'oneToOne',
+      'api::formulario.formulario'
+    > &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
