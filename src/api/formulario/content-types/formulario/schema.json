@@ -37,12 +37,6 @@
       "type": "boolean",
       "default": true
     },
-    "usuarios": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "formulario"
-    },
     "establishment": {
       "type": "relation",
       "relation": "oneToOne",
