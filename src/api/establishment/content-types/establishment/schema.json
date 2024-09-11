@@ -39,9 +39,9 @@
       "type": "boolean",
       "default": false
     },
-    "user": {
+    "users_authenticateds": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "inversedBy": "establishment_authenticateds"
     }

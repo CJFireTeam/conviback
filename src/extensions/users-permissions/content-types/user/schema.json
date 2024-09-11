@@ -114,9 +114,9 @@
     },
     "establishment_authenticateds": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::establishment.establishment",
-      "mappedBy": "user"
+      "mappedBy": "users_authenticateds"
     },
     "phone": {
       "type": "string",

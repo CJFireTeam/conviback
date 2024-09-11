@@ -798,7 +798,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       }>;
     establishment_authenticateds: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToMany',
+      'manyToMany',
       'api::establishment.establishment'
     >;
     phone: Attribute.String & Attribute.Required;
@@ -1019,9 +1019,9 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     is_listing: Attribute.Boolean & Attribute.DefaultTo<false>;
-    user: Attribute.Relation<
+    users_authenticateds: Attribute.Relation<
       'api::establishment.establishment',
-      'manyToOne',
+      'manyToMany',
       'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
