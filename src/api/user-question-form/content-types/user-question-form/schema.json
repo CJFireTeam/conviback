@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_question_forms",
+  "info": {
+    "singularName": "user-question-form",
+    "pluralName": "user-question-forms",
+    "displayName": "userQuestionForm",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "userform": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::userform.userform"
+    },
+    "response": {
+      "type": "string",
+      "required": true
+    },
+    "pregunta": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::pregunta.pregunta"
+    }
+  }
+}

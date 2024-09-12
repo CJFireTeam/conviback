@@ -798,7 +798,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       }>;
     establishment_authenticateds: Attribute.Relation<
       'plugin::users-permissions.user',
-      'manyToMany',
+      'oneToMany',
       'api::establishment.establishment'
     >;
     phone: Attribute.String & Attribute.Required;
@@ -1019,11 +1019,6 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     is_listing: Attribute.Boolean & Attribute.DefaultTo<false>;
-    users_authenticateds: Attribute.Relation<
-      'api::establishment.establishment',
-      'manyToMany',
-      'plugin::users-permissions.user'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1349,6 +1344,48 @@ export interface ApiSuggestionSuggestion extends Schema.CollectionType {
   };
 }
 
+export interface ApiUserQuestionFormUserQuestionForm
+  extends Schema.CollectionType {
+  collectionName: 'user_question_forms';
+  info: {
+    singularName: 'user-question-form';
+    pluralName: 'user-question-forms';
+    displayName: 'userQuestionForm';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    userform: Attribute.Relation<
+      'api::user-question-form.user-question-form',
+      'oneToOne',
+      'api::userform.userform'
+    >;
+    response: Attribute.String & Attribute.Required;
+    pregunta: Attribute.Relation<
+      'api::user-question-form.user-question-form',
+      'oneToOne',
+      'api::pregunta.pregunta'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::user-question-form.user-question-form',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::user-question-form.user-question-form',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiUserformUserform extends Schema.CollectionType {
   collectionName: 'userforms';
   info: {
@@ -1430,6 +1467,7 @@ declare module '@strapi/types' {
       'api::role-list.role-list': ApiRoleListRoleList;
       'api::sugerencia.sugerencia': ApiSugerenciaSugerencia;
       'api::suggestion.suggestion': ApiSuggestionSuggestion;
+      'api::user-question-form.user-question-form': ApiUserQuestionFormUserQuestionForm;
       'api::userform.userform': ApiUserformUserform;
     }
   }

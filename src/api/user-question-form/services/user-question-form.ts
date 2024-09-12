@@ -1,0 +1,7 @@
+/**
+ * user-question-form service
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreService('api::user-question-form.user-question-form');

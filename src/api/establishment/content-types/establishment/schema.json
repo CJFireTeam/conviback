@@ -38,12 +38,6 @@
     "is_listing": {
       "type": "boolean",
       "default": false
-    },
-    "users_authenticateds": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "establishment_authenticateds"
     }
   }
 }
