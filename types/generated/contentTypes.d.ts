@@ -1362,12 +1362,12 @@ export interface ApiUserQuestionFormUserQuestionForm
       'oneToOne',
       'api::userform.userform'
     >;
-    response: Attribute.String & Attribute.Required;
     pregunta: Attribute.Relation<
       'api::user-question-form.user-question-form',
       'oneToOne',
       'api::pregunta.pregunta'
     >;
+    response: Attribute.JSON & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

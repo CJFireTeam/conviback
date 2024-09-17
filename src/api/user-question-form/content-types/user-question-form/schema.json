@@ -17,14 +17,14 @@
       "relation": "oneToOne",
       "target": "api::userform.userform"
     },
-    "response": {
-      "type": "string",
-      "required": true
-    },
     "pregunta": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::pregunta.pregunta"
+    },
+    "response": {
+      "type": "json",
+      "required": true
     }
   }
 }
