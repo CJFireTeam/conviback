@@ -802,6 +802,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'api::establishment.establishment'
     >;
     phone: Attribute.String & Attribute.Required;
+    meeting: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::meeting.meeting'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1019,6 +1024,11 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     is_listing: Attribute.Boolean & Attribute.DefaultTo<false>;
+    meeting: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToOne',
+      'api::meeting.meeting'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1085,6 +1095,49 @@ export interface ApiFormularioFormulario extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::formulario.formulario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMeetingMeeting extends Schema.CollectionType {
+  collectionName: 'meetings';
+  info: {
+    singularName: 'meeting';
+    pluralName: 'meetings';
+    displayName: 'Meeting';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    CreationDate: Attribute.Date;
+    RoomName: Attribute.String;
+    RoomUrl: Attribute.String;
+    Establishment: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    CreatorUser: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::meeting.meeting',
       'oneToOne',
       'admin::user'
     > &
@@ -1461,6 +1514,7 @@ declare module '@strapi/types' {
       'api::complaint.complaint': ApiComplaintComplaint;
       'api::establishment.establishment': ApiEstablishmentEstablishment;
       'api::formulario.formulario': ApiFormularioFormulario;
+      'api::meeting.meeting': ApiMeetingMeeting;
       'api::position.position': ApiPositionPosition;
       'api::pregunta.pregunta': ApiPreguntaPregunta;
       'api::professional.professional': ApiProfessionalProfessional;
