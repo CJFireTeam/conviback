@@ -38,6 +38,12 @@
     "is_listing": {
       "type": "boolean",
       "default": false
+    },
+    "meeting": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::meeting.meeting",
+      "mappedBy": "Establishment"
     }
   }
 }

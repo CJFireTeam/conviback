@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meetings",
+  "info": {
+    "singularName": "meeting",
+    "pluralName": "meetings",
+    "displayName": "Meeting",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "CreationDate": {
+      "type": "date"
+    },
+    "RoomName": {
+      "type": "string"
+    },
+    "RoomUrl": {
+      "type": "string"
+    },
+    "Establishment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::establishment.establishment",
+      "inversedBy": "meeting"
+    },
+    "CreatorUser": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "meeting"
+    }
+  }
+}

@@ -4,8 +4,9 @@ module.exports = ({ env }) => ({
     config: {
       provider: 'nodemailer',
       providerOptions: {
-        host: env('SMTP_HOST', 'smtp.gmail.com'),
-        port: env('SMTP_PORT', 587),
+        secure: true,
+        host: env('SMTP_HOST', 'mail.codevsoft.cl'),
+        port: env('SMTP_PORT', 465),
         auth: {
           user: env('SMTP_USERNAME'),
           pass: env('SMTP_APIKEY'),
@@ -13,8 +14,8 @@ module.exports = ({ env }) => ({
         // ... any custom nodemailer options
       },
       settings: {
-        defaultFrom: 'cesar.laraperalta@gmail.com',
-        defaultReplyTo: 'cesar.laraperalta@gmail.com',
+        defaultFrom: 'contacto@codevsoft.cl',
+        defaultReplyTo: 'contacto@codevsoft.cl',
       },
     },
   },
