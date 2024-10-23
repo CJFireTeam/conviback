@@ -807,6 +807,17 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'api::meeting.meeting'
     >;
+    canUploadDoc: Attribute.Boolean;
+    courses: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::course.course'
+    >;
+    documents: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::document.document'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -997,6 +1008,101 @@ export interface ApiComplaintComplaint extends Schema.CollectionType {
   };
 }
 
+export interface ApiCourseCourse extends Schema.CollectionType {
+  collectionName: 'courses';
+  info: {
+    singularName: 'course';
+    pluralName: 'courses';
+    displayName: 'Course';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    grade: Attribute.String;
+    letter: Attribute.String;
+    establishment: Attribute.Relation<
+      'api::course.course',
+      'manyToOne',
+      'api::establishment.establishment'
+    >;
+    users: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    documents: Attribute.Relation<
+      'api::course.course',
+      'oneToMany',
+      'api::document.document'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDocumentDocument extends Schema.CollectionType {
+  collectionName: 'documents';
+  info: {
+    singularName: 'document';
+    pluralName: 'documents';
+    displayName: 'Document';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    nameUser: Attribute.String;
+    lastNameUser: Attribute.String;
+    descriptionDoc: Attribute.Text;
+    userId: Attribute.Relation<
+      'api::document.document',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    establishmentId: Attribute.Relation<
+      'api::document.document',
+      'manyToOne',
+      'api::establishment.establishment'
+    >;
+    courseId: Attribute.Relation<
+      'api::document.document',
+      'manyToOne',
+      'api::course.course'
+    >;
+    document: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::document.document',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::document.document',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
   collectionName: 'establishments';
   info: {
@@ -1028,6 +1134,16 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       'api::establishment.establishment',
       'oneToOne',
       'api::meeting.meeting'
+    >;
+    courses: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToMany',
+      'api::course.course'
+    >;
+    documents: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToMany',
+      'api::document.document'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1512,6 +1628,8 @@ declare module '@strapi/types' {
       'api::case.case': ApiCaseCase;
       'api::charge.charge': ApiChargeCharge;
       'api::complaint.complaint': ApiComplaintComplaint;
+      'api::course.course': ApiCourseCourse;
+      'api::document.document': ApiDocumentDocument;
       'api::establishment.establishment': ApiEstablishmentEstablishment;
       'api::formulario.formulario': ApiFormularioFormulario;
       'api::meeting.meeting': ApiMeetingMeeting;

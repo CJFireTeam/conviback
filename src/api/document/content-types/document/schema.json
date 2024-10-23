@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "documents",
+  "info": {
+    "singularName": "document",
+    "pluralName": "documents",
+    "displayName": "Document",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nameUser": {
+      "type": "string"
+    },
+    "lastNameUser": {
+      "type": "string"
+    },
+    "descriptionDoc": {
+      "type": "text"
+    },
+    "userId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "documents"
+    },
+    "establishmentId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::establishment.establishment",
+      "inversedBy": "documents"
+    },
+    "courseId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "documents"
+    },
+    "document": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}

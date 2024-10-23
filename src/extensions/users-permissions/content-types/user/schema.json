@@ -126,6 +126,21 @@
       "relation": "oneToOne",
       "target": "api::meeting.meeting",
       "mappedBy": "CreatorUser"
+    },
+    "canUploadDoc": {
+      "type": "boolean"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course.course",
+      "mappedBy": "users"
+    },
+    "documents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::document.document",
+      "mappedBy": "userId"
     }
   }
 }
