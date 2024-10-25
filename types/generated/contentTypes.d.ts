@@ -818,6 +818,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::document.document'
     >;
+    documentsList: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::document.document'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1066,8 +1071,6 @@ export interface ApiDocumentDocument extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    nameUser: Attribute.String;
-    lastNameUser: Attribute.String;
     descriptionDoc: Attribute.Text;
     userId: Attribute.Relation<
       'api::document.document',
@@ -1086,6 +1089,11 @@ export interface ApiDocumentDocument extends Schema.CollectionType {
     >;
     document: Attribute.Media;
     Eliminado: Attribute.Boolean & Attribute.DefaultTo<false>;
+    user_destiny: Attribute.Relation<
+      'api::document.document',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

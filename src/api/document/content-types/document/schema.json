@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nameUser": {
-      "type": "string"
-    },
-    "lastNameUser": {
-      "type": "string"
-    },
     "descriptionDoc": {
       "type": "text"
     },
@@ -53,6 +47,12 @@
     "Eliminado": {
       "type": "boolean",
       "default": false
+    },
+    "user_destiny": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "documentsList"
     }
   }
 }
