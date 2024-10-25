@@ -128,7 +128,8 @@
       "mappedBy": "CreatorUser"
     },
     "canUploadDoc": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "courses": {
       "type": "relation",

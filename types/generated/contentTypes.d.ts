@@ -807,7 +807,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'api::meeting.meeting'
     >;
-    canUploadDoc: Attribute.Boolean;
+    canUploadDoc: Attribute.Boolean & Attribute.DefaultTo<false>;
     courses: Attribute.Relation<
       'plugin::users-permissions.user',
       'manyToMany',
@@ -1085,6 +1085,7 @@ export interface ApiDocumentDocument extends Schema.CollectionType {
       'api::course.course'
     >;
     document: Attribute.Media;
+    Eliminado: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
