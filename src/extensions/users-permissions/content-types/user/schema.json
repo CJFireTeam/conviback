@@ -148,6 +148,12 @@
       "relation": "oneToMany",
       "target": "api::document.document",
       "mappedBy": "user_destiny"
+    },
+    "Meeting_Destiny": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::meeting.meeting",
+      "inversedBy": "Users_destiny"
     }
   }
 }

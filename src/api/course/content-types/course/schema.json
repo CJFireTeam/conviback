@@ -4,19 +4,14 @@
   "info": {
     "singularName": "course",
     "pluralName": "courses",
-    "displayName": "Course"
+    "displayName": "Course",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "grade": {
-      "type": "string"
-    },
-    "letter": {
-      "type": "string"
-    },
     "establishment": {
       "type": "relation",
       "relation": "manyToOne",
@@ -34,6 +29,18 @@
       "relation": "oneToMany",
       "target": "api::document.document",
       "mappedBy": "courseId"
+    },
+    "meeting": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::meeting.meeting",
+      "inversedBy": "Courses"
+    },
+    "establishment_courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::establishment-course.establishment-course",
+      "mappedBy": "course"
     }
   }
 }

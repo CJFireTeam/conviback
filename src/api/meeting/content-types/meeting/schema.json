@@ -31,6 +31,18 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "meeting"
+    },
+    "Courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course",
+      "mappedBy": "meeting"
+    },
+    "Users_destiny": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "Meeting_Destiny"
     }
   }
 }

@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "establishment_courses",
+  "info": {
+    "singularName": "establishment-course",
+    "pluralName": "establishment-courses",
+    "displayName": "EstablishmentCourse",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Letter": {
+      "type": "string",
+      "required": true
+    },
+    "Grade": {
+      "type": "string",
+      "required": true
+    },
+    "establishment": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::establishment.establishment",
+      "inversedBy": "establishment_courses"
+    },
+    "Eliminado": {
+      "type": "boolean",
+      "default": false
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "establishment_courses"
+    }
+  }
+}
