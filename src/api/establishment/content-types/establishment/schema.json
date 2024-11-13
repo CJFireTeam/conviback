@@ -56,6 +56,12 @@
       "relation": "oneToMany",
       "target": "api::document.document",
       "mappedBy": "establishmentId"
+    },
+    "establishment_courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::establishment-course.establishment-course",
+      "mappedBy": "establishment"
     }
   }
 }

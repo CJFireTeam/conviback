@@ -823,6 +823,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::document.document'
     >;
+    Meeting_Destiny: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToOne',
+      'api::meeting.meeting'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1019,13 +1024,12 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     singularName: 'course';
     pluralName: 'courses';
     displayName: 'Course';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    grade: Attribute.String;
-    letter: Attribute.String;
     establishment: Attribute.Relation<
       'api::course.course',
       'manyToOne',
@@ -1040,6 +1044,16 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'api::course.course',
       'oneToMany',
       'api::document.document'
+    >;
+    meeting: Attribute.Relation<
+      'api::course.course',
+      'manyToOne',
+      'api::meeting.meeting'
+    >;
+    establishment_courses: Attribute.Relation<
+      'api::course.course',
+      'oneToMany',
+      'api::establishment-course.establishment-course'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1154,6 +1168,11 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       'oneToMany',
       'api::document.document'
     >;
+    establishment_courses: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToMany',
+      'api::establishment-course.establishment-course'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1165,6 +1184,50 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::establishment.establishment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEstablishmentCourseEstablishmentCourse
+  extends Schema.CollectionType {
+  collectionName: 'establishment_courses';
+  info: {
+    singularName: 'establishment-course';
+    pluralName: 'establishment-courses';
+    displayName: 'EstablishmentCourse';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Letter: Attribute.String & Attribute.Required;
+    Grade: Attribute.String & Attribute.Required;
+    establishment: Attribute.Relation<
+      'api::establishment-course.establishment-course',
+      'manyToOne',
+      'api::establishment.establishment'
+    >;
+    Eliminado: Attribute.Boolean & Attribute.DefaultTo<false>;
+    course: Attribute.Relation<
+      'api::establishment-course.establishment-course',
+      'manyToOne',
+      'api::course.course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::establishment-course.establishment-course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::establishment-course.establishment-course',
       'oneToOne',
       'admin::user'
     > &
@@ -1250,6 +1313,16 @@ export interface ApiMeetingMeeting extends Schema.CollectionType {
     CreatorUser: Attribute.Relation<
       'api::meeting.meeting',
       'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    Courses: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToMany',
+      'api::course.course'
+    >;
+    Users_destiny: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToMany',
       'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
@@ -1640,6 +1713,7 @@ declare module '@strapi/types' {
       'api::course.course': ApiCourseCourse;
       'api::document.document': ApiDocumentDocument;
       'api::establishment.establishment': ApiEstablishmentEstablishment;
+      'api::establishment-course.establishment-course': ApiEstablishmentCourseEstablishmentCourse;
       'api::formulario.formulario': ApiFormularioFormulario;
       'api::meeting.meeting': ApiMeetingMeeting;
       'api::position.position': ApiPositionPosition;
