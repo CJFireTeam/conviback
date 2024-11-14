@@ -30,17 +30,11 @@
       "target": "api::document.document",
       "mappedBy": "courseId"
     },
-    "meeting": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::meeting.meeting",
-      "inversedBy": "Courses"
-    },
     "establishment_courses": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::establishment-course.establishment-course",
-      "mappedBy": "course"
+      "mappedBy": "courses"
     }
   }
 }

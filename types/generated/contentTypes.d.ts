@@ -362,6 +362,850 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiCaseCase extends Schema.CollectionType {
+  collectionName: 'cases';
+  info: {
+    singularName: 'case';
+    pluralName: 'cases';
+    displayName: 'case';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    measures: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    story: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    directed: Attribute.Relation<
+      'api::case.case',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    who: Attribute.JSON;
+    establishment: Attribute.Relation<
+      'api::case.case',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    when: Attribute.JSON;
+    where: Attribute.JSON;
+    created: Attribute.Relation<
+      'api::case.case',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    fase: Attribute.Integer & Attribute.DefaultTo<1>;
+    derived: Attribute.Boolean & Attribute.DefaultTo<false>;
+    category: Attribute.Enumeration<
+      [
+        'Initial',
+        'Aula Segura',
+        'Pr\u00E1cticas abusivas sexuales',
+        'Maltrato f\u00EDsico y psicol\u00F3gico entre pares',
+        'Embarazo y paternidad adolescente',
+        'Vulneraci\u00F3n de derechos',
+        'Consumo de drogas y alcohol',
+        'Tendencia o actos suicidas',
+        'Bullying',
+        'Otros'
+      ]
+    > &
+      Attribute.DefaultTo<'Initial'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiChargeCharge extends Schema.CollectionType {
+  collectionName: 'charges';
+  info: {
+    singularName: 'charge';
+    pluralName: 'charges';
+    displayName: 'charge';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    professional: Attribute.Relation<
+      'api::charge.charge',
+      'oneToOne',
+      'api::professional.professional'
+    >;
+    case: Attribute.Relation<
+      'api::charge.charge',
+      'oneToOne',
+      'api::case.case'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::charge.charge',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::charge.charge',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiComplaintComplaint extends Schema.CollectionType {
+  collectionName: 'complaints';
+  info: {
+    singularName: 'complaint';
+    pluralName: 'complaints';
+    displayName: 'complaint';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    first_case: Attribute.Relation<
+      'api::complaint.complaint',
+      'oneToOne',
+      'api::case.case'
+    >;
+    derived: Attribute.Relation<
+      'api::complaint.complaint',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    nameSchoolar: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    course: Attribute.String & Attribute.Required;
+    Teacher: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    date: Attribute.DateTime;
+    details: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+      }>;
+    measures: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+      }>;
+    created: Attribute.Relation<
+      'api::complaint.complaint',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    options: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::complaint.complaint',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::complaint.complaint',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCourseCourse extends Schema.CollectionType {
+  collectionName: 'courses';
+  info: {
+    singularName: 'course';
+    pluralName: 'courses';
+    displayName: 'Course';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    establishment: Attribute.Relation<
+      'api::course.course',
+      'manyToOne',
+      'api::establishment.establishment'
+    >;
+    users: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    documents: Attribute.Relation<
+      'api::course.course',
+      'oneToMany',
+      'api::document.document'
+    >;
+    establishment_courses: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'api::establishment-course.establishment-course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDocumentDocument extends Schema.CollectionType {
+  collectionName: 'documents';
+  info: {
+    singularName: 'document';
+    pluralName: 'documents';
+    displayName: 'Document';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    descriptionDoc: Attribute.Text;
+    userId: Attribute.Relation<
+      'api::document.document',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    establishmentId: Attribute.Relation<
+      'api::document.document',
+      'manyToOne',
+      'api::establishment.establishment'
+    >;
+    courseId: Attribute.Relation<
+      'api::document.document',
+      'manyToOne',
+      'api::course.course'
+    >;
+    document: Attribute.Media;
+    Eliminado: Attribute.Boolean & Attribute.DefaultTo<false>;
+    user_destiny: Attribute.Relation<
+      'api::document.document',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::document.document',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::document.document',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
+  collectionName: 'establishments';
+  info: {
+    singularName: 'establishment';
+    pluralName: 'establishments';
+    displayName: 'establishment';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    status: Attribute.Boolean;
+    address: Attribute.String;
+    Phone: Attribute.String;
+    Comuna: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    users: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    is_listing: Attribute.Boolean & Attribute.DefaultTo<false>;
+    meeting: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToOne',
+      'api::meeting.meeting'
+    >;
+    courses: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToMany',
+      'api::course.course'
+    >;
+    documents: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToMany',
+      'api::document.document'
+    >;
+    establishment_courses: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToMany',
+      'api::establishment-course.establishment-course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEstablishmentCourseEstablishmentCourse
+  extends Schema.CollectionType {
+  collectionName: 'establishment_courses';
+  info: {
+    singularName: 'establishment-course';
+    pluralName: 'establishment-courses';
+    displayName: 'EstablishmentCourse';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Letter: Attribute.String & Attribute.Required;
+    Grade: Attribute.String & Attribute.Required;
+    establishment: Attribute.Relation<
+      'api::establishment-course.establishment-course',
+      'manyToOne',
+      'api::establishment.establishment'
+    >;
+    Eliminado: Attribute.Boolean & Attribute.DefaultTo<false>;
+    courses: Attribute.Relation<
+      'api::establishment-course.establishment-course',
+      'manyToMany',
+      'api::course.course'
+    >;
+    meeting: Attribute.Relation<
+      'api::establishment-course.establishment-course',
+      'manyToOne',
+      'api::meeting.meeting'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::establishment-course.establishment-course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::establishment-course.establishment-course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFormularioFormulario extends Schema.CollectionType {
+  collectionName: 'formularios';
+  info: {
+    singularName: 'formulario';
+    pluralName: 'formularios';
+    displayName: 'formulario';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Titulo: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    FechaInicio: Attribute.Date & Attribute.Required;
+    FechaFin: Attribute.Date & Attribute.Required;
+    creador: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    Descripcion: Attribute.Text;
+    status: Attribute.Boolean & Attribute.DefaultTo<true>;
+    establishment: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    formulario_pregutas: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToMany',
+      'api::pregunta.pregunta'
+    >;
+    ForCourse: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::formulario.formulario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMeetingMeeting extends Schema.CollectionType {
+  collectionName: 'meetings';
+  info: {
+    singularName: 'meeting';
+    pluralName: 'meetings';
+    displayName: 'Meeting';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    CreationDate: Attribute.Date;
+    RoomName: Attribute.String;
+    RoomUrl: Attribute.String;
+    Establishment: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    CreatorUser: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    Users_destiny: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    establishment_courses: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToMany',
+      'api::establishment-course.establishment-course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::meeting.meeting',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPositionPosition extends Schema.CollectionType {
+  collectionName: 'positions';
+  info: {
+    singularName: 'position';
+    pluralName: 'positions';
+    displayName: 'position';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    establishment: Attribute.Relation<
+      'api::position.position',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    name: Attribute.String & Attribute.Required;
+    status: Attribute.Boolean & Attribute.DefaultTo<true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::position.position',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::position.position',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPreguntaPregunta extends Schema.CollectionType {
+  collectionName: 'preguntas';
+  info: {
+    singularName: 'pregunta';
+    pluralName: 'preguntas';
+    displayName: 'pregunta';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Titulo: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
+      }>;
+    Tipo: Attribute.Enumeration<
+      ['text', 'option', 'multipleChoice', 'qualification']
+    > &
+      Attribute.Required;
+    opciones: Attribute.JSON;
+    formulario: Attribute.Relation<
+      'api::pregunta.pregunta',
+      'manyToOne',
+      'api::formulario.formulario'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pregunta.pregunta',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pregunta.pregunta',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProfessionalProfessional extends Schema.CollectionType {
+  collectionName: 'professionals';
+  info: {
+    singularName: 'professional';
+    pluralName: 'professionals';
+    displayName: 'professional';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    names: Attribute.Text & Attribute.Required;
+    surnames: Attribute.Text;
+    position: Attribute.Relation<
+      'api::professional.professional',
+      'oneToOne',
+      'api::position.position'
+    >;
+    establishment: Attribute.Relation<
+      'api::professional.professional',
+      'oneToOne',
+      'api::establishment.establishment'
+    >;
+    status: Attribute.Boolean & Attribute.DefaultTo<true>;
+    email: Attribute.Email & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::professional.professional',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::professional.professional',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRoleListRoleList extends Schema.CollectionType {
+  collectionName: 'role_lists';
+  info: {
+    singularName: 'role-list';
+    pluralName: 'role-lists';
+    displayName: 'roleList';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    reference: Attribute.Integer;
+    forCases: Attribute.Boolean;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::role-list.role-list',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::role-list.role-list',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSugerenciaSugerencia extends Schema.CollectionType {
+  collectionName: 'sugerencias';
+  info: {
+    singularName: 'sugerencia';
+    pluralName: 'sugerencias';
+    displayName: 'sugerencia';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    sugerencia: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+      }>;
+    creador: Attribute.Relation<
+      'api::sugerencia.sugerencia',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    > &
+      Attribute.Required;
+    establishment: Attribute.Relation<
+      'api::sugerencia.sugerencia',
+      'oneToOne',
+      'api::establishment.establishment'
+    > &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::sugerencia.sugerencia',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::sugerencia.sugerencia',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSuggestionSuggestion extends Schema.CollectionType {
+  collectionName: 'suggestions';
+  info: {
+    singularName: 'suggestion';
+    pluralName: 'suggestions';
+    displayName: 'suggestion';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    suggestion: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 10;
+      }>;
+    created: Attribute.Relation<
+      'api::suggestion.suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    > &
+      Attribute.Required;
+    establishment: Attribute.Relation<
+      'api::suggestion.suggestion',
+      'oneToOne',
+      'api::establishment.establishment'
+    > &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::suggestion.suggestion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::suggestion.suggestion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiUserQuestionFormUserQuestionForm
+  extends Schema.CollectionType {
+  collectionName: 'user_question_forms';
+  info: {
+    singularName: 'user-question-form';
+    pluralName: 'user-question-forms';
+    displayName: 'userQuestionForm';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    userform: Attribute.Relation<
+      'api::user-question-form.user-question-form',
+      'oneToOne',
+      'api::userform.userform'
+    >;
+    pregunta: Attribute.Relation<
+      'api::user-question-form.user-question-form',
+      'oneToOne',
+      'api::pregunta.pregunta'
+    >;
+    response: Attribute.JSON & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::user-question-form.user-question-form',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::user-question-form.user-question-form',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiUserformUserform extends Schema.CollectionType {
+  collectionName: 'userforms';
+  info: {
+    singularName: 'userform';
+    pluralName: 'userforms';
+    displayName: 'userform';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    isCompleted: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    user: Attribute.Relation<
+      'api::userform.userform',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    > &
+      Attribute.Required;
+    establishment: Attribute.Relation<
+      'api::userform.userform',
+      'oneToOne',
+      'api::establishment.establishment'
+    > &
+      Attribute.Required;
+    date: Attribute.DateTime & Attribute.Required;
+    formulario: Attribute.Relation<
+      'api::userform.userform',
+      'oneToOne',
+      'api::formulario.formulario'
+    > &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::userform.userform',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::userform.userform',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -845,850 +1689,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiCaseCase extends Schema.CollectionType {
-  collectionName: 'cases';
-  info: {
-    singularName: 'case';
-    pluralName: 'cases';
-    displayName: 'case';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    measures: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    story: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    directed: Attribute.Relation<
-      'api::case.case',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    who: Attribute.JSON;
-    establishment: Attribute.Relation<
-      'api::case.case',
-      'oneToOne',
-      'api::establishment.establishment'
-    >;
-    when: Attribute.JSON;
-    where: Attribute.JSON;
-    created: Attribute.Relation<
-      'api::case.case',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    fase: Attribute.Integer & Attribute.DefaultTo<1>;
-    derived: Attribute.Boolean & Attribute.DefaultTo<false>;
-    category: Attribute.Enumeration<
-      [
-        'Initial',
-        'Aula Segura',
-        'Pr\u00E1cticas abusivas sexuales',
-        'Maltrato f\u00EDsico y psicol\u00F3gico entre pares',
-        'Embarazo y paternidad adolescente',
-        'Vulneraci\u00F3n de derechos',
-        'Consumo de drogas y alcohol',
-        'Tendencia o actos suicidas',
-        'Bullying',
-        'Otros'
-      ]
-    > &
-      Attribute.DefaultTo<'Initial'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::case.case', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiChargeCharge extends Schema.CollectionType {
-  collectionName: 'charges';
-  info: {
-    singularName: 'charge';
-    pluralName: 'charges';
-    displayName: 'charge';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    professional: Attribute.Relation<
-      'api::charge.charge',
-      'oneToOne',
-      'api::professional.professional'
-    >;
-    case: Attribute.Relation<
-      'api::charge.charge',
-      'oneToOne',
-      'api::case.case'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::charge.charge',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::charge.charge',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiComplaintComplaint extends Schema.CollectionType {
-  collectionName: 'complaints';
-  info: {
-    singularName: 'complaint';
-    pluralName: 'complaints';
-    displayName: 'complaint';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    first_case: Attribute.Relation<
-      'api::complaint.complaint',
-      'oneToOne',
-      'api::case.case'
-    >;
-    derived: Attribute.Relation<
-      'api::complaint.complaint',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    nameSchoolar: Attribute.Text &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 5;
-      }>;
-    course: Attribute.String & Attribute.Required;
-    Teacher: Attribute.Text &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 5;
-      }>;
-    date: Attribute.DateTime;
-    details: Attribute.Text &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 10;
-      }>;
-    measures: Attribute.Text &
-      Attribute.SetMinMaxLength<{
-        minLength: 10;
-      }>;
-    created: Attribute.Relation<
-      'api::complaint.complaint',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    options: Attribute.JSON;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::complaint.complaint',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::complaint.complaint',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiCourseCourse extends Schema.CollectionType {
-  collectionName: 'courses';
-  info: {
-    singularName: 'course';
-    pluralName: 'courses';
-    displayName: 'Course';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    establishment: Attribute.Relation<
-      'api::course.course',
-      'manyToOne',
-      'api::establishment.establishment'
-    >;
-    users: Attribute.Relation<
-      'api::course.course',
-      'manyToMany',
-      'plugin::users-permissions.user'
-    >;
-    documents: Attribute.Relation<
-      'api::course.course',
-      'oneToMany',
-      'api::document.document'
-    >;
-    meeting: Attribute.Relation<
-      'api::course.course',
-      'manyToOne',
-      'api::meeting.meeting'
-    >;
-    establishment_courses: Attribute.Relation<
-      'api::course.course',
-      'oneToMany',
-      'api::establishment-course.establishment-course'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::course.course',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::course.course',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiDocumentDocument extends Schema.CollectionType {
-  collectionName: 'documents';
-  info: {
-    singularName: 'document';
-    pluralName: 'documents';
-    displayName: 'Document';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    descriptionDoc: Attribute.Text;
-    userId: Attribute.Relation<
-      'api::document.document',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    establishmentId: Attribute.Relation<
-      'api::document.document',
-      'manyToOne',
-      'api::establishment.establishment'
-    >;
-    courseId: Attribute.Relation<
-      'api::document.document',
-      'manyToOne',
-      'api::course.course'
-    >;
-    document: Attribute.Media;
-    Eliminado: Attribute.Boolean & Attribute.DefaultTo<false>;
-    user_destiny: Attribute.Relation<
-      'api::document.document',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::document.document',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::document.document',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
-  collectionName: 'establishments';
-  info: {
-    singularName: 'establishment';
-    pluralName: 'establishments';
-    displayName: 'establishment';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    status: Attribute.Boolean;
-    address: Attribute.String;
-    Phone: Attribute.String;
-    Comuna: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    users: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
-    is_listing: Attribute.Boolean & Attribute.DefaultTo<false>;
-    meeting: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToOne',
-      'api::meeting.meeting'
-    >;
-    courses: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToMany',
-      'api::course.course'
-    >;
-    documents: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToMany',
-      'api::document.document'
-    >;
-    establishment_courses: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToMany',
-      'api::establishment-course.establishment-course'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiEstablishmentCourseEstablishmentCourse
-  extends Schema.CollectionType {
-  collectionName: 'establishment_courses';
-  info: {
-    singularName: 'establishment-course';
-    pluralName: 'establishment-courses';
-    displayName: 'EstablishmentCourse';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Letter: Attribute.String & Attribute.Required;
-    Grade: Attribute.String & Attribute.Required;
-    establishment: Attribute.Relation<
-      'api::establishment-course.establishment-course',
-      'manyToOne',
-      'api::establishment.establishment'
-    >;
-    Eliminado: Attribute.Boolean & Attribute.DefaultTo<false>;
-    course: Attribute.Relation<
-      'api::establishment-course.establishment-course',
-      'manyToOne',
-      'api::course.course'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::establishment-course.establishment-course',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::establishment-course.establishment-course',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiFormularioFormulario extends Schema.CollectionType {
-  collectionName: 'formularios';
-  info: {
-    singularName: 'formulario';
-    pluralName: 'formularios';
-    displayName: 'formulario';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Titulo: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 5;
-      }>;
-    FechaInicio: Attribute.Date & Attribute.Required;
-    FechaFin: Attribute.Date & Attribute.Required;
-    creador: Attribute.Relation<
-      'api::formulario.formulario',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    Descripcion: Attribute.Text;
-    status: Attribute.Boolean & Attribute.DefaultTo<true>;
-    establishment: Attribute.Relation<
-      'api::formulario.formulario',
-      'oneToOne',
-      'api::establishment.establishment'
-    >;
-    formulario_pregutas: Attribute.Relation<
-      'api::formulario.formulario',
-      'oneToMany',
-      'api::pregunta.pregunta'
-    >;
-    ForCourse: Attribute.Boolean & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::formulario.formulario',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::formulario.formulario',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiMeetingMeeting extends Schema.CollectionType {
-  collectionName: 'meetings';
-  info: {
-    singularName: 'meeting';
-    pluralName: 'meetings';
-    displayName: 'Meeting';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    CreationDate: Attribute.Date;
-    RoomName: Attribute.String;
-    RoomUrl: Attribute.String;
-    Establishment: Attribute.Relation<
-      'api::meeting.meeting',
-      'oneToOne',
-      'api::establishment.establishment'
-    >;
-    CreatorUser: Attribute.Relation<
-      'api::meeting.meeting',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    Courses: Attribute.Relation<
-      'api::meeting.meeting',
-      'oneToMany',
-      'api::course.course'
-    >;
-    Users_destiny: Attribute.Relation<
-      'api::meeting.meeting',
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::meeting.meeting',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::meeting.meeting',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPositionPosition extends Schema.CollectionType {
-  collectionName: 'positions';
-  info: {
-    singularName: 'position';
-    pluralName: 'positions';
-    displayName: 'position';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    establishment: Attribute.Relation<
-      'api::position.position',
-      'oneToOne',
-      'api::establishment.establishment'
-    >;
-    name: Attribute.String & Attribute.Required;
-    status: Attribute.Boolean & Attribute.DefaultTo<true>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::position.position',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::position.position',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPreguntaPregunta extends Schema.CollectionType {
-  collectionName: 'preguntas';
-  info: {
-    singularName: 'pregunta';
-    pluralName: 'preguntas';
-    displayName: 'pregunta';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Titulo: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 3;
-      }>;
-    Tipo: Attribute.Enumeration<
-      ['text', 'option', 'multipleChoice', 'qualification']
-    > &
-      Attribute.Required;
-    opciones: Attribute.JSON;
-    formulario: Attribute.Relation<
-      'api::pregunta.pregunta',
-      'manyToOne',
-      'api::formulario.formulario'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pregunta.pregunta',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pregunta.pregunta',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiProfessionalProfessional extends Schema.CollectionType {
-  collectionName: 'professionals';
-  info: {
-    singularName: 'professional';
-    pluralName: 'professionals';
-    displayName: 'professional';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    names: Attribute.Text & Attribute.Required;
-    surnames: Attribute.Text;
-    position: Attribute.Relation<
-      'api::professional.professional',
-      'oneToOne',
-      'api::position.position'
-    >;
-    establishment: Attribute.Relation<
-      'api::professional.professional',
-      'oneToOne',
-      'api::establishment.establishment'
-    >;
-    status: Attribute.Boolean & Attribute.DefaultTo<true>;
-    email: Attribute.Email & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::professional.professional',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::professional.professional',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiRoleListRoleList extends Schema.CollectionType {
-  collectionName: 'role_lists';
-  info: {
-    singularName: 'role-list';
-    pluralName: 'role-lists';
-    displayName: 'roleList';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    reference: Attribute.Integer;
-    forCases: Attribute.Boolean;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::role-list.role-list',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::role-list.role-list',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiSugerenciaSugerencia extends Schema.CollectionType {
-  collectionName: 'sugerencias';
-  info: {
-    singularName: 'sugerencia';
-    pluralName: 'sugerencias';
-    displayName: 'sugerencia';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    sugerencia: Attribute.Text &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 10;
-      }>;
-    creador: Attribute.Relation<
-      'api::sugerencia.sugerencia',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    > &
-      Attribute.Required;
-    establishment: Attribute.Relation<
-      'api::sugerencia.sugerencia',
-      'oneToOne',
-      'api::establishment.establishment'
-    > &
-      Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::sugerencia.sugerencia',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::sugerencia.sugerencia',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiSuggestionSuggestion extends Schema.CollectionType {
-  collectionName: 'suggestions';
-  info: {
-    singularName: 'suggestion';
-    pluralName: 'suggestions';
-    displayName: 'suggestion';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    suggestion: Attribute.Text &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 10;
-      }>;
-    created: Attribute.Relation<
-      'api::suggestion.suggestion',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    > &
-      Attribute.Required;
-    establishment: Attribute.Relation<
-      'api::suggestion.suggestion',
-      'oneToOne',
-      'api::establishment.establishment'
-    > &
-      Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::suggestion.suggestion',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::suggestion.suggestion',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiUserQuestionFormUserQuestionForm
-  extends Schema.CollectionType {
-  collectionName: 'user_question_forms';
-  info: {
-    singularName: 'user-question-form';
-    pluralName: 'user-question-forms';
-    displayName: 'userQuestionForm';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    userform: Attribute.Relation<
-      'api::user-question-form.user-question-form',
-      'oneToOne',
-      'api::userform.userform'
-    >;
-    pregunta: Attribute.Relation<
-      'api::user-question-form.user-question-form',
-      'oneToOne',
-      'api::pregunta.pregunta'
-    >;
-    response: Attribute.JSON & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::user-question-form.user-question-form',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::user-question-form.user-question-form',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiUserformUserform extends Schema.CollectionType {
-  collectionName: 'userforms';
-  info: {
-    singularName: 'userform';
-    pluralName: 'userforms';
-    displayName: 'userform';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    isCompleted: Attribute.Boolean &
-      Attribute.Required &
-      Attribute.DefaultTo<false>;
-    user: Attribute.Relation<
-      'api::userform.userform',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    > &
-      Attribute.Required;
-    establishment: Attribute.Relation<
-      'api::userform.userform',
-      'oneToOne',
-      'api::establishment.establishment'
-    > &
-      Attribute.Required;
-    date: Attribute.DateTime & Attribute.Required;
-    formulario: Attribute.Relation<
-      'api::userform.userform',
-      'oneToOne',
-      'api::formulario.formulario'
-    > &
-      Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::userform.userform',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::userform.userform',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1699,14 +1699,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'plugin::upload.file': PluginUploadFile;
-      'plugin::upload.folder': PluginUploadFolder;
-      'plugin::content-releases.release': PluginContentReleasesRelease;
-      'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
-      'plugin::i18n.locale': PluginI18NLocale;
-      'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
-      'plugin::users-permissions.role': PluginUsersPermissionsRole;
-      'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::case.case': ApiCaseCase;
       'api::charge.charge': ApiChargeCharge;
       'api::complaint.complaint': ApiComplaintComplaint;
@@ -1724,6 +1716,14 @@ declare module '@strapi/types' {
       'api::suggestion.suggestion': ApiSuggestionSuggestion;
       'api::user-question-form.user-question-form': ApiUserQuestionFormUserQuestionForm;
       'api::userform.userform': ApiUserformUserform;
+      'plugin::upload.file': PluginUploadFile;
+      'plugin::upload.folder': PluginUploadFolder;
+      'plugin::content-releases.release': PluginContentReleasesRelease;
+      'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::i18n.locale': PluginI18NLocale;
+      'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
+      'plugin::users-permissions.role': PluginUsersPermissionsRole;
+      'plugin::users-permissions.user': PluginUsersPermissionsUser;
     }
   }
 }
