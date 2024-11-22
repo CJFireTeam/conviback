@@ -131,12 +131,6 @@
       "type": "boolean",
       "default": false
     },
-    "courses": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::course.course",
-      "mappedBy": "users"
-    },
     "documents": {
       "type": "relation",
       "relation": "oneToMany",
@@ -154,6 +148,12 @@
       "relation": "manyToOne",
       "target": "api::meeting.meeting",
       "inversedBy": "Users_destiny"
+    },
+    "establishment_courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::establishment-course.establishment-course",
+      "inversedBy": "users"
     }
   }
 }

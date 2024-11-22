@@ -45,12 +45,6 @@
       "target": "api::meeting.meeting",
       "mappedBy": "Establishment"
     },
-    "courses": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::course.course",
-      "mappedBy": "establishment"
-    },
     "documents": {
       "type": "relation",
       "relation": "oneToMany",

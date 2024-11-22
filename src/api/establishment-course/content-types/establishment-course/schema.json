@@ -24,23 +24,30 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::establishment.establishment",
-      "inversedBy": "establishment_courses"
+      "inversedBy": "establishment_courses",
+      "required": true
     },
     "Eliminado": {
       "type": "boolean",
       "default": false
-    },
-    "courses": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::course.course",
-      "inversedBy": "establishment_courses"
     },
     "meeting": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::meeting.meeting",
       "inversedBy": "establishment_courses"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "establishment_courses"
+    },
+    "documents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::document.document",
+      "mappedBy": "establishment_course"
     }
   }
 }
