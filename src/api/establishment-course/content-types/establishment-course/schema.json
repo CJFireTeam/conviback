@@ -48,6 +48,12 @@
       "relation": "oneToMany",
       "target": "api::document.document",
       "mappedBy": "establishment_course"
+    },
+    "LeadTeacher": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "establishment_course"
     }
   }
 }

@@ -828,6 +828,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToMany',
       'api::establishment-course.establishment-course'
     >;
+    establishment_course: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::establishment-course.establishment-course'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1167,6 +1172,11 @@ export interface ApiEstablishmentCourseEstablishmentCourse
       'api::establishment-course.establishment-course',
       'oneToMany',
       'api::document.document'
+    >;
+    LeadTeacher: Attribute.Relation<
+      'api::establishment-course.establishment-course',
+      'oneToOne',
+      'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

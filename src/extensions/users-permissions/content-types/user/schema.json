@@ -154,6 +154,12 @@
       "relation": "manyToMany",
       "target": "api::establishment-course.establishment-course",
       "inversedBy": "users"
+    },
+    "establishment_course": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::establishment-course.establishment-course",
+      "mappedBy": "LeadTeacher"
     }
   }
 }
