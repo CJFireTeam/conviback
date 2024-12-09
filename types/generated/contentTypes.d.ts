@@ -1089,7 +1089,7 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
-    status: Attribute.Boolean;
+    status: Attribute.Boolean & Attribute.DefaultTo<true>;
     address: Attribute.String;
     Phone: Attribute.String;
     Comuna: Attribute.String &
@@ -1155,8 +1155,7 @@ export interface ApiEstablishmentCourseEstablishmentCourse
       'api::establishment-course.establishment-course',
       'manyToOne',
       'api::establishment.establishment'
-    > &
-      Attribute.Required;
+    >;
     Eliminado: Attribute.Boolean & Attribute.DefaultTo<false>;
     meeting: Attribute.Relation<
       'api::establishment-course.establishment-course',

@@ -16,7 +16,8 @@
       "type": "string"
     },
     "status": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": true
     },
     "address": {
       "type": "string"

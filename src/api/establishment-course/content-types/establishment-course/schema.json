@@ -24,8 +24,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::establishment.establishment",
-      "inversedBy": "establishment_courses",
-      "required": true
+      "inversedBy": "establishment_courses"
     },
     "Eliminado": {
       "type": "boolean",
