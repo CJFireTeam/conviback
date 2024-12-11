@@ -57,6 +57,9 @@
       "relation": "oneToMany",
       "target": "api::establishment-course.establishment-course",
       "mappedBy": "establishment"
+    },
+    "Region": {
+      "type": "string"
     }
   }
 }

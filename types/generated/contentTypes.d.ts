@@ -1118,6 +1118,7 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       'oneToMany',
       'api::establishment-course.establishment-course'
     >;
+    Region: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
