@@ -2,7 +2,7 @@ import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController('api::meeting.meeting', ({ strapi }) => ({
   async create(ctx) {
-    const { CreationDate, RoomName, RoomUrl, Establishment, CreatorUser, establishment_courses, Users_destiny } = ctx.request.body;
+    const { CreationDate, RoomName, RoomUrl, Establishment, CreatorUser, establishment_courses, Users_destiny, MeetingDate, MeetingTime} = ctx.request.body;
 
     // Crear un nuevo registro
     const entity = await strapi.entityService.create('api::meeting.meeting', {
@@ -13,7 +13,9 @@ export default factories.createCoreController('api::meeting.meeting', ({ strapi 
         Establishment,
         CreatorUser,
         establishment_courses,
-        Users_destiny
+        Users_destiny,
+        MeetingDate,
+        MeetingTime
       },
     });
 
@@ -79,6 +81,8 @@ export default factories.createCoreController('api::meeting.meeting', ({ strapi 
             <p>Puede ingresar a la reunión a través del siguiente link: <a href="${RoomUrl}">${RoomUrl}</a></p>
             <p>Nombre de la sala: ${RoomName}</p>
             <p>Fecha: ${CreationDate}</p>
+            <p>Fecha de la reunión: ${MeetingDate || 'No especificada'}</p>
+            <p>Hora de la reunión: ${MeetingTime || 'No especificada'}</p>
           `,
         });
       } catch (error) {
