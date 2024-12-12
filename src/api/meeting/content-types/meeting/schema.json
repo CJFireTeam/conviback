@@ -45,7 +45,10 @@
       "mappedBy": "meeting"
     },
     "MeetingDate": {
-      "type": "datetime"
+      "type": "date"
+    },
+    "MeetingTime": {
+      "type": "time"
     }
   }
 }
