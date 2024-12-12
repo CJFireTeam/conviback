@@ -1286,6 +1286,7 @@ export interface ApiMeetingMeeting extends Schema.CollectionType {
       'oneToMany',
       'api::establishment-course.establishment-course'
     >;
+    MeetingDate: Attribute.DateTime;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

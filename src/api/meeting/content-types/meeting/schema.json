@@ -43,6 +43,9 @@
       "relation": "oneToMany",
       "target": "api::establishment-course.establishment-course",
       "mappedBy": "meeting"
+    },
+    "MeetingDate": {
+      "type": "datetime"
     }
   }
 }
