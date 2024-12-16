@@ -97,6 +97,7 @@ export default factories.createCoreController('api::meeting.meeting', ({ strapi 
         filters: ctx.query.filters || {},
         sort: ctx.query.sort || [],
         pagination: ctx.query.pagination || { page: 1, pageSize: 10 },
+        populate:'*',
       });
   
       if (!results || results.length === 0) {
