@@ -2,7 +2,7 @@ import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController('api::meeting.meeting', ({ strapi }) => ({
   async create(ctx) {
-    const { CreationDate, RoomName, RoomUrl, Establishment, CreatorUser, establishment_courses, Users_destiny, MeetingDate, MeetingTime} = ctx.request.body;
+    const { CreationDate, RoomName, RoomUrl, Establishment, CreatorUser, establishment_courses, Users_destiny, MeetingDate, MeetingTime } = ctx.request.body;
 
     // Crear un nuevo registro
     const entity = await strapi.entityService.create('api::meeting.meeting', {
@@ -22,7 +22,7 @@ export default factories.createCoreController('api::meeting.meeting', ({ strapi 
     let usersToNotify = [];
 
     // Si se seleccionaron cursos, obtener los usuarios de esos cursos
-    if (establishment_courses && establishment_courses.length > 0 /* && (!Users_destiny || Users_destiny.length === 0) */ ) {
+    if (establishment_courses && establishment_courses.length > 0 /* && (!Users_destiny || Users_destiny.length === 0) */) {
       const usersFromCourses = await strapi.db.query('plugin::users-permissions.user').findMany({
         where: {
           establishment_courses: {
@@ -97,7 +97,12 @@ export default factories.createCoreController('api::meeting.meeting', ({ strapi 
         filters: ctx.query.filters || {},
         sort: ctx.query.sort || [],
         pagination: ctx.query.pagination || { page: 1, pageSize: 10 },
-        populate:'*',
+        populate: {
+          Establishment: true, // Población completa del establecimiento
+          CreatorUser:  true, // Población completa del creador
+          Users_destiny: true, // Población completa de los usuarios de destino
+          establishment_courses: true, // Población completa de los cursos
+        },
       });
   
       if (!results || results.length === 0) {
