@@ -90,5 +90,32 @@ export default factories.createCoreController('api::meeting.meeting', ({ strapi 
       }
     }
     return entity;
+  },
+  async find(ctx) {
+    try {
+      const { results, pagination } = await strapi.entityService.findPage('api::meeting.meeting', {
+        filters: ctx.query.filters || {},
+        sort: ctx.query.sort || [],
+        pagination: ctx.query.pagination || { page: 1, pageSize: 10 },
+      });
+  
+      if (!results || results.length === 0) {
+        console.log('No se encontraron reuniones');
+        return {
+          data: [],
+          meta: { pagination, message: 'No se encontraron reuniones' }
+        };
+      }
+  
+      return {
+        data: results,
+        meta: { pagination }
+      };
+    } catch (error) {
+      console.error('Error en el método find:', error);
+      ctx.body = { error: error.message };
+      ctx.status = 500;
+    }
   }
+
 }));
