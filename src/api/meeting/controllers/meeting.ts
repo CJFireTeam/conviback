@@ -122,6 +122,105 @@ export default factories.createCoreController('api::meeting.meeting', ({ strapi 
       ctx.body = { error: error.message };
       ctx.status = 500;
     }
+  },
+  async update(ctx) {
+    const { id } = ctx.params;
+    const { FirstNotice, LastNotice } = ctx.request.body;
+  
+    // Primero obtenemos la reunión existente para tener todos los datos necesarios
+    const existingMeeting = await strapi.entityService.findOne('api::meeting.meeting', id, {
+      populate: {
+        Establishment: true,
+        establishment_courses: true,
+        Users_destiny: true,
+      },
+    });
+  
+    if (!existingMeeting) {
+      ctx.throw(404, 'Meeting not found');
+    }
+  
+    // Actualizamos solo los campos necesarios
+    const entity = await strapi.entityService.update('api::meeting.meeting', id, {
+      data: {
+        FirstNotice,
+        LastNotice,
+      },
+    });
+  
+    let usersToNotify = [];
+  
+    // Reutilizamos la lógica de notificación existente
+    if (existingMeeting.establishment_courses && existingMeeting.establishment_courses.length > 0) {
+      const usersFromCourses = await strapi.db.query('plugin::users-permissions.user').findMany({
+        where: {
+          establishment_courses: {
+            id: { $in: existingMeeting.establishment_courses.map(course => course.id) },
+          },
+          $or: [
+            { establishment: { id: existingMeeting.Establishment.id } },
+            { establishment_authenticateds: { id: existingMeeting.Establishment.id } }
+          ],
+        },
+        select: ['id', 'email', 'firstname', 'first_lastname'],
+      });
+      usersToNotify = [...usersToNotify, ...usersFromCourses];
+    }
+  
+    if (existingMeeting.Users_destiny && existingMeeting.Users_destiny.length > 0) {
+      const specificUsers = await strapi.db.query('plugin::users-permissions.user').findMany({
+        where: {
+          id: { $in: existingMeeting.Users_destiny.map(user => user.id) },
+          $or: [
+            { establishment: { id: existingMeeting.Establishment.id } },
+            { establishment_authenticateds: { id: existingMeeting.Establishment.id } }
+          ],
+        },
+        select: ['id', 'email', 'firstname', 'first_lastname'],
+      });
+      usersToNotify = [...usersToNotify, ...specificUsers];
+    }
+  
+    if ((!existingMeeting.establishment_courses || existingMeeting.establishment_courses.length === 0) && 
+        (!existingMeeting.Users_destiny || existingMeeting.Users_destiny.length === 0)) {
+      usersToNotify = await strapi.db.query('plugin::users-permissions.user').findMany({
+        where: {
+          $or: [
+            { establishment: { id: existingMeeting.Establishment.id } },
+            { establishment_authenticateds: { id: existingMeeting.Establishment.id } }
+          ],
+        },
+        select: ['id', 'email', 'firstname', 'first_lastname'],
+      });
+    }
+  
+    // Eliminar duplicados
+    usersToNotify = Array.from(new Set(usersToNotify.map(user => JSON.stringify(user)))).map(user => JSON.parse(user));
+  
+    // Determinar el tipo de notificación
+    const notificationType = FirstNotice ? 'primera' : LastNotice ? 'última' : '';
+  
+    // Enviar correos
+    for (const user of usersToNotify) {
+      try {
+        await strapi.plugin('email').service('email').send({
+          to: user.email,
+          subject: `Recordatorio de reunión - ${notificationType} notificación`,
+          html: `
+            <p><strong>Hola ${user.firstname} ${user.first_lastname},</strong></p>
+            <p>Esta es la ${notificationType} notificación para la reunión "${existingMeeting.RoomName}".</p>
+            <p>Puede ingresar a la reunión a través del siguiente link: <a href="${existingMeeting.RoomUrl}">${existingMeeting.RoomUrl}</a></p>
+            <p>Nombre de la sala: ${existingMeeting.RoomName}</p>
+            <p>Fecha de la reunión: ${existingMeeting.MeetingDate || 'No especificada'}</p>
+            <p>Hora de la reunión: ${existingMeeting.MeetingTime || 'No especificada'}</p>
+          `,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  
+    return entity;
   }
 
 }));

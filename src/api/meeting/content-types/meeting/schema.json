@@ -50,6 +50,14 @@
     },
     "MeetingTime": {
       "type": "time"
+    },
+    "FirstNotice": {
+      "type": "boolean",
+      "default": false
+    },
+    "LastNotice": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

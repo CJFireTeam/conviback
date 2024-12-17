@@ -1260,7 +1260,7 @@ export interface ApiMeetingMeeting extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     CreationDate: Attribute.Date;
@@ -1288,9 +1288,10 @@ export interface ApiMeetingMeeting extends Schema.CollectionType {
     >;
     MeetingDate: Attribute.Date;
     MeetingTime: Attribute.Time;
+    FirstNotice: Attribute.Boolean & Attribute.DefaultTo<false>;
+    LastNotice: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::meeting.meeting',
       'oneToOne',
