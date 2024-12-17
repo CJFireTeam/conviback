@@ -21,29 +21,29 @@
     "RoomUrl": {
       "type": "string"
     },
-    "Establishment": {
+    "establishment": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::establishment.establishment",
-      "inversedBy": "meeting"
+      "inversedBy": "meetings"
     },
-    "CreatorUser": {
+    "creator_user": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "meeting"
+      "inversedBy": "meetings"
     },
-    "Users_destiny": {
+    "users_destiny": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
-      "mappedBy": "Meeting_Destiny"
+      "inversedBy": "Meeting_Destinies"
     },
-    "establishment_courses": {
+    "establishment_course": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::establishment-course.establishment-course",
-      "mappedBy": "meeting"
+      "inversedBy": "meetings"
     },
     "MeetingDate": {
       "type": "date"

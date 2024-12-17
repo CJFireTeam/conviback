@@ -802,11 +802,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'api::establishment.establishment'
     >;
     phone: Attribute.String & Attribute.Required;
-    meeting: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'api::meeting.meeting'
-    >;
     canUploadDoc: Attribute.Boolean & Attribute.DefaultTo<false>;
     documents: Attribute.Relation<
       'plugin::users-permissions.user',
@@ -818,11 +813,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::document.document'
     >;
-    Meeting_Destiny: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'manyToOne',
-      'api::meeting.meeting'
-    >;
     establishment_courses: Attribute.Relation<
       'plugin::users-permissions.user',
       'manyToMany',
@@ -832,6 +822,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'oneToOne',
       'api::establishment-course.establishment-course'
+    >;
+    meetings: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::meeting.meeting'
+    >;
+    Meeting_Destinies: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::meeting.meeting'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1103,11 +1103,6 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     is_listing: Attribute.Boolean & Attribute.DefaultTo<false>;
-    meeting: Attribute.Relation<
-      'api::establishment.establishment',
-      'oneToOne',
-      'api::meeting.meeting'
-    >;
     documents: Attribute.Relation<
       'api::establishment.establishment',
       'oneToMany',
@@ -1119,6 +1114,11 @@ export interface ApiEstablishmentEstablishment extends Schema.CollectionType {
       'api::establishment-course.establishment-course'
     >;
     Region: Attribute.String;
+    meetings: Attribute.Relation<
+      'api::establishment.establishment',
+      'oneToMany',
+      'api::meeting.meeting'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1158,11 +1158,6 @@ export interface ApiEstablishmentCourseEstablishmentCourse
       'api::establishment.establishment'
     >;
     Eliminado: Attribute.Boolean & Attribute.DefaultTo<false>;
-    meeting: Attribute.Relation<
-      'api::establishment-course.establishment-course',
-      'manyToOne',
-      'api::meeting.meeting'
-    >;
     users: Attribute.Relation<
       'api::establishment-course.establishment-course',
       'manyToMany',
@@ -1177,6 +1172,11 @@ export interface ApiEstablishmentCourseEstablishmentCourse
       'api::establishment-course.establishment-course',
       'oneToOne',
       'plugin::users-permissions.user'
+    >;
+    meetings: Attribute.Relation<
+      'api::establishment-course.establishment-course',
+      'manyToMany',
+      'api::meeting.meeting'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1266,24 +1266,24 @@ export interface ApiMeetingMeeting extends Schema.CollectionType {
     CreationDate: Attribute.Date;
     RoomName: Attribute.String;
     RoomUrl: Attribute.String;
-    Establishment: Attribute.Relation<
+    establishment: Attribute.Relation<
       'api::meeting.meeting',
-      'oneToOne',
+      'manyToOne',
       'api::establishment.establishment'
     >;
-    CreatorUser: Attribute.Relation<
+    creator_user: Attribute.Relation<
       'api::meeting.meeting',
-      'oneToOne',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
-    Users_destiny: Attribute.Relation<
+    users_destiny: Attribute.Relation<
       'api::meeting.meeting',
-      'oneToMany',
+      'manyToMany',
       'plugin::users-permissions.user'
     >;
-    establishment_courses: Attribute.Relation<
+    establishment_course: Attribute.Relation<
       'api::meeting.meeting',
-      'oneToMany',
+      'manyToMany',
       'api::establishment-course.establishment-course'
     >;
     MeetingDate: Attribute.Date;

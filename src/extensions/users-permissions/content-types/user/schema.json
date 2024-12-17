@@ -121,12 +121,6 @@
       "type": "string",
       "required": true
     },
-    "meeting": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::meeting.meeting",
-      "mappedBy": "CreatorUser"
-    },
     "canUploadDoc": {
       "type": "boolean",
       "default": false
@@ -143,12 +137,6 @@
       "target": "api::document.document",
       "mappedBy": "user_destiny"
     },
-    "Meeting_Destiny": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::meeting.meeting",
-      "inversedBy": "Users_destiny"
-    },
     "establishment_courses": {
       "type": "relation",
       "relation": "manyToMany",
@@ -160,6 +148,18 @@
       "relation": "oneToOne",
       "target": "api::establishment-course.establishment-course",
       "mappedBy": "LeadTeacher"
+    },
+    "meetings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::meeting.meeting",
+      "mappedBy": "creator_user"
+    },
+    "Meeting_Destinies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::meeting.meeting",
+      "mappedBy": "users_destiny"
     }
   }
 }

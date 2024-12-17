@@ -30,12 +30,6 @@
       "type": "boolean",
       "default": false
     },
-    "meeting": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::meeting.meeting",
-      "inversedBy": "establishment_courses"
-    },
     "users": {
       "type": "relation",
       "relation": "manyToMany",
@@ -53,6 +47,12 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "establishment_course"
+    },
+    "meetings": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::meeting.meeting",
+      "mappedBy": "establishment_course"
     }
   }
 }
