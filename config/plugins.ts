@@ -2,22 +2,16 @@ module.exports = ({ env }) => ({
   // ...
   email: {
     config: {
-      provider: 'nodemailer',
+      provider: 'mailgun',
       providerOptions: {
-        secure: true,
-        host: env('SMTP_HOST', 'mail.codevsoft.cl'),
-        port: env('SMTP_PORT', 465),
-        auth: {
-          user: env('SMTP_USERNAME'),
-          pass: env('SMTP_APIKEY'),
-        },
-        // ... any custom nodemailer options
+        key: env('MAILGUN_API_KEY'), // Required
+        domain: env('MAILGUN_DOMAIN'), // Required
+        url: env('MAILGUN_URL', 'https://api.mailgun.net'), //Optional. If domain region is Europe use 'https://api.eu.mailgun.net'
       },
       settings: {
-        defaultFrom: 'contacto@codevsoft.cl',
-        defaultReplyTo: 'contacto@codevsoft.cl',
+        defaultFrom: 'postmaster@codevsoft.cl',
+        defaultReplyTo: 'postmaster@codevsoft.cl',
       },
     },
   },
-  // ...
 });
