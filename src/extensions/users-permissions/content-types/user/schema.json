@@ -160,6 +160,10 @@
       "relation": "manyToMany",
       "target": "api::meeting.meeting",
       "mappedBy": "users_destiny"
+    },
+    "eliminado": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
