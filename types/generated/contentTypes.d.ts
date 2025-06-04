@@ -1520,6 +1520,7 @@ export interface ApiSuggestionSuggestion extends Schema.CollectionType {
     singularName: 'suggestion';
     pluralName: 'suggestions';
     displayName: 'suggestion';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1542,6 +1543,13 @@ export interface ApiSuggestionSuggestion extends Schema.CollectionType {
       'api::establishment.establishment'
     > &
       Attribute.Required;
+    response: Attribute.Text;
+    user_response: Attribute.Relation<
+      'api::suggestion.suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    eliminado: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

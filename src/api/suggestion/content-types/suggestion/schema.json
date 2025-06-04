@@ -4,7 +4,8 @@
   "info": {
     "singularName": "suggestion",
     "pluralName": "suggestions",
-    "displayName": "suggestion"
+    "displayName": "suggestion",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,14 +20,26 @@
     "created": {
       "type": "relation",
       "relation": "oneToOne",
-      "required": true,
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "required": true
     },
     "establishment": {
       "type": "relation",
       "relation": "oneToOne",
-      "required": true,
-      "target": "api::establishment.establishment"
+      "target": "api::establishment.establishment",
+      "required": true
+    },
+    "response": {
+      "type": "text"
+    },
+    "user_response": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "eliminado": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
