@@ -1,0 +1,12 @@
+services:
+  strapi:
+    build: .
+    container_name: strapi
+    ports:
+      - '1337:80'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    restart: unless-stopped
