@@ -1640,12 +1640,12 @@
   resolved "https://registry.npmjs.org/@strapi/provider-audit-logs-local/-/provider-audit-logs-local-4.20.4.tgz"
   integrity sha512-IIIOXC0ZKMgWpUWL9OsZ8whQuomlDW2K9tvJ7H1qWX+deq2zjf1yLcIvFSwTMTjpYL2a8ooVoOukfFJIsF7qCg==
 
-"@strapi/provider-email-mailgun@^5.12.6":
-  version "5.12.6"
-  resolved "https://registry.npmjs.org/@strapi/provider-email-mailgun/-/provider-email-mailgun-5.12.6.tgz"
-  integrity sha512-c8BIFd1y7w++wQ5BiPuMv1HP3k/64BywFXighOpENguim6puDR1Q5tsWjN8BzddW5ZF2QeZbJi9RGjSFp78wtA==
+"@strapi/provider-email-mailgun@^5.16.0":
+  version "5.16.0"
+  resolved "https://registry.npmjs.org/@strapi/provider-email-mailgun/-/provider-email-mailgun-5.16.0.tgz"
+  integrity sha512-MqAhJNHV9jU8i1WaEkyn/wpmPLawK8G74JQv4wncvHRF9bqqUSxzVeEwqggktzQh1ce9SVPCxnWdXI/RFS13Og==
   dependencies:
-    "@strapi/utils" "5.12.6"
+    "@strapi/utils" "5.16.0"
     form-data "^4.0.0"
     mailgun.js "10.2.1"
 
@@ -1813,21 +1813,22 @@
     p-map "4.0.0"
     yup "0.32.9"
 
-"@strapi/utils@5.12.6":
-  version "5.12.6"
-  resolved "https://registry.npmjs.org/@strapi/utils/-/utils-5.12.6.tgz"
-  integrity sha512-hycl6hO/27q+uzRLx6WwnQq1sxiuu2IQknMXgBrtAhuYrtoA7K34pYACdNO98zM8/2qGum8jfh+C+kigMajuRA==
+"@strapi/utils@5.16.0":
+  version "5.16.0"
+  resolved "https://registry.npmjs.org/@strapi/utils/-/utils-5.16.0.tgz"
+  integrity sha512-SdsHolvyw/NH59ZnhTdhLmY4+TxUdwRegzIli6itW1XM/cOiUFx0HufHVkpwgCIXPaSaZAzHawZC3vL0SjgulQ==
   dependencies:
     "@sindresorhus/slugify" "1.1.0"
     date-fns "2.30.0"
     execa "5.1.1"
     http-errors "2.0.0"
+    json-logic-js "2.0.5"
     lodash "4.17.21"
     node-machine-id "1.1.12"
     p-map "4.0.0"
     preferred-pm "3.1.2"
     yup "0.32.9"
-    zod "^3.22.4"
+    zod "3.24.2"
 
 "@swc/core-win32-x64-msvc@1.4.5":
   version "1.4.5"
@@ -5834,6 +5835,11 @@ json-buffer@3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/json-buffer/-/json-buffer-3.0.1.tgz"
   integrity sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==
+
+json-logic-js@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.npmjs.org/json-logic-js/-/json-logic-js-2.0.5.tgz"
+  integrity sha512-rTT2+lqcuUmj4DgWfmzupZqQDA64AdmYqizzMPWj3DxGdfFNsxPpcNVSaTj4l8W2tG/+hg7/mQhxjU3aPacO6g==
 
 json-parse-even-better-errors@^2.3.0, json-parse-even-better-errors@^2.3.1:
   version "2.3.1"
@@ -10106,7 +10112,7 @@ z-schema@~5.0.2:
   optionalDependencies:
     commander "^10.0.0"
 
-zod@^3.22.4:
-  version "3.24.3"
-  resolved "https://registry.npmjs.org/zod/-/zod-3.24.3.tgz"
-  integrity sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==
+zod@3.24.2:
+  version "3.24.2"
+  resolved "https://registry.npmjs.org/zod/-/zod-3.24.2.tgz"
+  integrity sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==

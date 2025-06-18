@@ -1,26 +1,52 @@
 export default {
   async sendPasswordEmail(ctx) {
     const { email, password } = ctx.request.body;
+    
+    // Validación básica
+    if (!email || !password) {
+      ctx.status = 400;
+      return ctx.body = { 
+        success: false, 
+        message: "Faltan email o contraseña" 
+      };
+    }
 
     try {
-      await strapi.plugins.email.services.email.send({
+      // Enviar usando plantilla
+      const emailData = {
         to: email,
         subject: 'Tu Contraseña Temporal',
-        html: `
-          <p><strong>Estimado/a,</strong></p>
-          <p>Le informamos que su contraseña temporal es: <strong>${password}</strong></p>
-          <p>Por favor, asegúrese de haber autenticado su cuenta antes de iniciar sesión.</p>
-          <p>Le recomendamos cambiar su contraseña a través de su perfil tras su primer inicio de sesión para garantizar una mayor seguridad.</p>
-          <p>Atentamente,</p>
-          <p>El equipo de soporte.</p>
-        `,
-      });
+        template: 'contraseña temporal',
+        'h:X-Mailgun-Variables': JSON.stringify({
+          password: password,
+          email: email,
+          ip: ctx.request.ip,
+          fecha: new Date().toLocaleString('es-CL', {
+            timeZone: 'America/Santiago'
+          })
+        })
+      };
 
-      ctx.body = { success: true, message: "Correo enviado exitosamente" };
+      await strapi.plugins.email.services.email.send(emailData);
+
+      // Registrar envío exitoso (opcional)
+      strapi.log.info(`Email enviado a ${email}`);
+
+      ctx.body = { success: true, message: "Correo enviado" };
     } catch (error) {
-      console.error("Error al enviar el correo:", error);
+      // Registrar error detallado
+      strapi.log.error('Error Mailgun', {
+        error: error.message,
+        email: email,
+        stack: error.stack
+      });
+      
       ctx.status = 500;
-      ctx.body = { success: false, message: "Error al enviar el correo" };
+      ctx.body = {
+        success: false,
+        message: "Error en el servidor al enviar correo",
+        userMessage: "No pudimos enviar el correo. Por favor intenta más tarde."
+      };
     }
   },
 };
