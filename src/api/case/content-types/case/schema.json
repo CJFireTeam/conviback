@@ -13,12 +13,12 @@
   "pluginOptions": {},
   "attributes": {
     "measures": {
-      "type": "string",
+      "type": "text",
       "required": true,
       "minLength": 1
     },
     "story": {
-      "type": "string",
+      "type": "text",
       "required": true,
       "minLength": 1
     },

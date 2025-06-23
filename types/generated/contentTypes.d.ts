@@ -863,12 +863,12 @@ export interface ApiCaseCase extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    measures: Attribute.String &
+    measures: Attribute.Text &
       Attribute.Required &
       Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    story: Attribute.String &
+    story: Attribute.Text &
       Attribute.Required &
       Attribute.SetMinMaxLength<{
         minLength: 1;
